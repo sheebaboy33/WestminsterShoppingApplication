@@ -26,7 +26,14 @@ public class WestminsterShoppingManager implements ShoppingManager{
 
     @Override
     public void displayProducts() {
-
+        if (products.isEmpty()) {
+            System.out.println("Product list is Empty");
+        } else {
+            // Sort it in alphabetical order based on the product ID
+            for (Product product : products) {
+                System.out.println(product);
+            }
+        }
     }
 
     @Override

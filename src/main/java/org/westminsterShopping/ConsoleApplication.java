@@ -13,6 +13,8 @@ public class ConsoleApplication {
         addProductToSystem();
         addProductToSystem();
 
+        manager.displayProducts();
+
         input.close();
     }
 
@@ -58,6 +60,8 @@ public class ConsoleApplication {
         System.out.print("Enter Product Name: \n>>>");
         String productName = input.nextLine();
 
+        System.out.print("Enter Available Items: \n>>>");
+        int availableItems = input.nextInt();
 
         System.out.print("Enter Product Price: \n>>>");
         double price = input.nextDouble();
@@ -65,12 +69,13 @@ public class ConsoleApplication {
 
         switch (productType.toLowerCase().trim()) {
             case "electronic" -> {
+                input.nextLine();
                 System.out.print("Enter Brand Name: \n>>>");
                 String brand = input.nextLine();
-                input.nextLine();
+
                 System.out.print("Enter Warranty Period in Weeks: \n>>>");
                 int warrantyPeriod = input.nextInt();
-                product = new Electronics(productId, productName, price, brand, warrantyPeriod);
+                product = new Electronics(productId, productName, availableItems, price, brand, warrantyPeriod);
             }
             case "clothing" -> {
                 System.out.print("Enter Size (L/ M/ S): \n>>>"); // Validate the sizes
@@ -88,7 +93,7 @@ public class ConsoleApplication {
                 if (isInvalidColor(red) || isInvalidColor(green) || isInvalidColor(blue)) {
                     return null;
                 }
-                product = new Clothing(productId, productName, price, size, new Color(red, green, blue));
+                product = new Clothing(productId, productName, availableItems, price, size, new Color(red, green, blue));
             }
             default -> {
                 return null;

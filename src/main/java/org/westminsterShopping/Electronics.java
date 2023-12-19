@@ -4,9 +4,9 @@ public class Electronics extends Product{
     private String brand;
     private int warrantyPeriodInWeeks;
 
-    public Electronics(String productId, String productName, double price,
+    public Electronics(String productId, String productName,int availableItems, double price,
                        String brand, int warrantyPeriodInWeeks) {
-        super(productId, productName, price);
+        super(productId, productName, availableItems, price);
         this.brand = brand;
         this.warrantyPeriodInWeeks = warrantyPeriodInWeeks;
     }
@@ -31,7 +31,7 @@ public class Electronics extends Product{
     public String toString() {
         return "Product Type: Electronics " +
                 super.toString() +
-                "Brand: '" + brand + '\'' +
-                "Warranty Period In Weeks: " + warrantyPeriodInWeeks;
+                ", Brand: " + this.brand  +
+                ", Warranty Period In Weeks: " + this.warrantyPeriodInWeeks;
     }
 }

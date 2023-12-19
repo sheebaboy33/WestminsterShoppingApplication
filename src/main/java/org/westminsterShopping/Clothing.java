@@ -7,9 +7,9 @@ public class Clothing extends Product{
     private Color color;
 
 
-    public Clothing(String productId, String productName, double price,
+    public Clothing(String productId, String productName, int availableItems, double price,
                     String size, Color color) {
-        super(productId, productName, price);
+        super(productId, productName, availableItems, price);
         this.size = size;
         this.color = color;
     }
@@ -34,7 +34,9 @@ public class Clothing extends Product{
     public String toString() {
         return "Product Type: Clothing " +
                 super.toString() +
-                "Size: '" + size + '\'' +
-                "RGB Value of Color: Red: " + color.getRed() + "Green: " + color.getGreen() + " Blue: " + color.getBlue();
+                ", Size: " + this.size  +
+                ", RGB Value of Color: Red: " + color.getRed() +
+                " Green: " + color.getGreen() +
+                " Blue: " + color.getBlue();
     }
 }

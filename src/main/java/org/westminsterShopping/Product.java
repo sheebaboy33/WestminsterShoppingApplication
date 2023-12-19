@@ -1,18 +1,20 @@
 package org.westminsterShopping;
 
+import java.util.Objects;
+
 public abstract class Product {
 
-    static int availableItems = 0; // wrong, change to instance
+    private int availableItems; // wrong, change to instance
     private String productId;
     private String productName;
     private double price;
 
 
-    public Product(String productId, String productName, double price) {
+    public Product(String productId, String productName, int availableItems, double price) {
         this.productId = productId;
         this.productName = productName;
+        this.availableItems = availableItems;
         this.price = price;
-        availableItems++;
     }
 
 
@@ -41,10 +43,20 @@ public abstract class Product {
         this.price = price;
     }
 
+    public int getAvailableItems() {
+        return availableItems;
+    }
+
+    public void setAvailableItems(int availableItems) {
+        this.availableItems = availableItems;
+    }
+
     @Override
     public String toString() {
-        return "ProductId: '" + productId + '\'' +
-                ", ProductName: '" + productName + '\'' +
-                ", Price: " + price;
+        return "ProductId: " + this.productId +
+                ", ProductName: " + this.productName +
+                ", AvailableItems: " + this.availableItems +
+                ", Price: " + this.price ;
     }
+
 }
