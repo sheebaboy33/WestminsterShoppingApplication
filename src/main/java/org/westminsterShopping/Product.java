@@ -2,9 +2,11 @@ package org.westminsterShopping;
 
 import java.util.Objects;
 
+import static java.lang.Integer.parseInt;
+
 public abstract class Product {
 
-    private int availableItems; // wrong, change to instance
+    private int availableItems;
     private String productId;
     private String productName;
     private double price;

@@ -4,16 +4,22 @@ import java.awt.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static org.westminsterShopping.WestminsterShoppingManager.productsList;
+
 public class ConsoleApplication {
     static ShoppingManager manager = new WestminsterShoppingManager();
     static Scanner input = new Scanner(System.in);
 
+
+    // Product ID must be unique
 
     public static void main(String[] args) {
         addProductToSystem();
         addProductToSystem();
 
         manager.displayProducts();
+        //System.out.println(manager.deleteProduct("AAA1"));
+        //manager.displayProducts();
 
         input.close();
     }
@@ -23,9 +29,17 @@ public class ConsoleApplication {
         try {
             Product product = getProductInput();
 
-            if (product != null)
-                manager.addProduct(product);
 
+            if (product != null) {
+
+                for (Product checkProduct: productsList) {
+                    if (checkProduct.getProductId().equals(product.getProductId())) {
+                        System.out.println("Product Id cannot be the same. Please Try again.");
+                        return;
+                    }
+                }
+                manager.addProduct(product);
+            }
             else
                 System.out.println("""
                         Invalid input. Please try again by checking for the errors below.

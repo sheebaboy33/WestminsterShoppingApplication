@@ -29,7 +29,7 @@ public class Electronics extends Product{
 
     @Override
     public String toString() {
-        return "Product Type: Electronics " +
+        return "Product Type: Electronics \n" +
                 super.toString() +
                 ", Brand: " + this.brand  +
                 ", Warranty Period In Weeks: " + this.warrantyPeriodInWeeks;

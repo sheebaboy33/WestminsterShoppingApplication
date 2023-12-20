@@ -32,7 +32,7 @@ public class Clothing extends Product{
 
     @Override
     public String toString() {
-        return "Product Type: Clothing " +
+        return "Product Type: Clothing \n" +
                 super.toString() +
                 ", Size: " + this.size  +
                 ", RGB Value of Color: Red: " + color.getRed() +
