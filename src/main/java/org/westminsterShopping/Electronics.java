@@ -11,6 +11,8 @@ public class Electronics extends Product{
         this.warrantyPeriodInWeeks = warrantyPeriodInWeeks;
     }
 
+    public Electronics() {};
+
     public String getBrand() {
         return brand;
     }

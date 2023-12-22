@@ -1,6 +1,7 @@
 package org.westminsterShopping;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,9 +14,13 @@ public class ConsoleApplication {
 
     // Product ID must be unique
 
-    public static void main(String[] args) {
-        addProductToSystem();
-        addProductToSystem();
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //addProductToSystem();
+        //addProductToSystem();
+
+        manager.retrieveDataFromFile("WestminsterProductDetails.txt");
+        //manager.saveToFile("WestminsterProductDetails.txt");
+
 
         manager.displayProducts();
         //System.out.println(manager.deleteProduct("AAA1"));
@@ -120,3 +125,4 @@ public class ConsoleApplication {
         return !(value >= 0 && value <= 255);
     }
 }
+

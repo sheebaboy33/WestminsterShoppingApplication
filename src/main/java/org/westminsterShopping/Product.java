@@ -1,10 +1,9 @@
 package org.westminsterShopping;
 
-import java.util.Objects;
+import java.io.Serializable;
+import java.util.Comparator;
 
-import static java.lang.Integer.parseInt;
-
-public abstract class Product {
+public abstract class Product implements Serializable{
 
     private int availableItems;
     private String productId;
@@ -19,6 +18,7 @@ public abstract class Product {
         this.price = price;
     }
 
+    public Product() {};
 
     public String getProductId() {
         return productId;
