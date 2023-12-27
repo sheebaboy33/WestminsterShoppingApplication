@@ -15,7 +15,10 @@ public class WestminsterShoppingManager implements ShoppingManager {
             productCount++;
             System.out.println(productsList.size());
 
-            System.out.println(product.getProductName() + " has been successfully added to the product list.\n");
+            System.out.println(product.getProductName() +
+                    " has been successfully added to the product list.");
+            System.out.println((50 - productCount) + " more Products can be added.");
+
         } else {
             System.out.println("Sorry, stock cannot exceed 50 products.");
         }
@@ -55,42 +58,49 @@ public class WestminsterShoppingManager implements ShoppingManager {
 
 
     @Override
-    public void saveToFile(String fileName) throws IOException {
+    public void saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("WestminsterProductDetails.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+            for (Product product : productsList) {
+                oos.writeObject(product);
+            }
+            System.out.println("Successfully saved to file.");
 
-        FileOutputStream fos = new FileOutputStream(fileName);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        for (Product product: productsList) {
-            oos.writeObject(product);
+            fos.close();
+            oos.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + ", Try again.");
         }
 
-        System.out.println("Successfully saved to file.");
-        fos.close();
-        oos.close();
     }
 
     @Override
-    public void retrieveDataFromFile(String fileName) throws IOException, ClassNotFoundException{
+    public void retrieveDataFromFile(){
 
-        FileInputStream fis = new FileInputStream(fileName);
-        ObjectInputStream ois = new ObjectInputStream(fis);
+        try {
+            FileInputStream fis = new FileInputStream("WestminsterProductDetails.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-        for (; ;) {
-            try {
-                Product product = (Product)ois.readObject();
-                productsList.add(product);
-                productCount++;
+            for (; ; ) {
+                try {
+                    Product product = (Product) ois.readObject();
+                    productsList.add(product);
+                    productCount++;
 
-            } catch (EOFException e) {
-                break;
+                } catch (EOFException e) {
+                    break;
+                }
             }
+
+            fis.close();
+            ois.close();
+
+            System.out.println("Data has been successfully retrieved from the file.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage() + ", Try again.");
         }
-
-        fis.close();
-        ois.close();
-
-        System.out.println("Data has been successfully retrieved from the file.");
     }
 }
 

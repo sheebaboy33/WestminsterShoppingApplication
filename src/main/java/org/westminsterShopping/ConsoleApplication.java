@@ -12,23 +12,72 @@ public class ConsoleApplication {
     static Scanner input = new Scanner(System.in);
 
 
-    // Product ID must be unique
+    public static void main(String[] args){
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //addProductToSystem();
-        //addProductToSystem();
+        System.out.println("*".repeat(52) + "\n* Welcome to the Westminster Shopping Application! *\n" + "*".repeat(52));
 
-        manager.retrieveDataFromFile("WestminsterProductDetails.txt");
-        //manager.saveToFile("WestminsterProductDetails.txt");
+        menuLoop :
+        while (true) {
 
+            // TODO: Validate input for integer
+            System.out.print("Select an option: \n>>>");
+            int choice = 0;
 
-        manager.displayProducts();
-        //System.out.println(manager.deleteProduct("AAA1"));
-        //manager.displayProducts();
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage() + ", Try again." );
+            }
 
+            switch (choice) {
+                case 100:
+                    addProductToSystem();
+                    break;
+
+                case 101:
+                    System.out.println("Enter the Product ID: \n");
+                    String productId = input.next();
+                    manager.deleteProduct(productId);
+                    break;
+
+                case 102:
+                    manager.displayProducts();
+                    break;
+
+                case 103:
+                    manager.saveToFile();
+                    break;
+
+                case 104:
+                    // GUI
+                    break;
+
+                case 105:
+                    System.out.println("Thank you for using the system. Have a pleasant day!");
+                    manager.saveToFile();
+                    break menuLoop;
+
+                default:
+                    System.out.println("Invalid option.Please try again!");
+                    displayMenu();
+                    break;
+            }
+        }
         input.close();
     }
 
+    public static void displayMenu() {
+        System.out.println("""
+                Menu Options \n
+                100 - Add New Product to the System.
+                101 - Delete a Product from the System.
+                102 - Display the list of Products in the System.
+                103 - Save to File.
+                104 - Open GUI for Client.
+                105 - Quit the Application.
+                
+                """);
+    }
 
     public static void addProductToSystem() {
         try {
