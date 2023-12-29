@@ -1,5 +1,6 @@
 package org.westminsterShopping;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -101,6 +102,27 @@ public class WestminsterShoppingManager implements ShoppingManager {
         } catch (Exception e) {
             System.out.println(e.getMessage() + ", Try again.");
         }
+    }
+
+    public JPanel getDataFromID(String productId) {
+        for (Product product: productsList) {
+            if (product.getProductId().equals(productId)) {
+                return product.getDetailsForGUI();
+            }
+        }
+        return null;
+    }
+
+
+    public ArrayList<Product> getProductsByCategory(String category) {
+        ArrayList<Product> filteredProducts = new ArrayList<>();
+
+        for (Product product : productsList) {
+            if (product.getCategory().equals(category)) {
+                filteredProducts.add(product);
+            }
+        }
+        return filteredProducts;
     }
 }
 

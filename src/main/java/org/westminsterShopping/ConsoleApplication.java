@@ -1,7 +1,6 @@
 package org.westminsterShopping;
 
-import java.awt.*;
-import java.io.IOException;
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,13 +12,15 @@ public class ConsoleApplication {
 
 
     public static void main(String[] args){
+        manager.retrieveDataFromFile();
 
         System.out.println("*".repeat(52) + "\n* Welcome to the Westminster Shopping Application! *\n" + "*".repeat(52));
 
         menuLoop :
         while (true) {
 
-            // TODO: Validate input for integer
+            displayMenu();
+
             System.out.print("Select an option: \n>>>");
             int choice = 0;
 
@@ -49,7 +50,11 @@ public class ConsoleApplication {
                     break;
 
                 case 104:
-                    // GUI
+                    JFrame frame = new GUIApplication();
+                    frame.setTitle("Westminster Shopping Centre");
+                    frame.setSize(1000, 1200);
+                    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
                     break;
 
                 case 105:
@@ -66,18 +71,20 @@ public class ConsoleApplication {
         input.close();
     }
 
+
     public static void displayMenu() {
         System.out.println("""
-                Menu Options \n
+                \nMenu Options \n
                 100 - Add New Product to the System.
                 101 - Delete a Product from the System.
                 102 - Display the list of Products in the System.
                 103 - Save to File.
-                104 - Open GUI for Client.
+                104 - Open GUI for Customer.
                 105 - Quit the Application.
                 
                 """);
     }
+
 
     public static void addProductToSystem() {
         try {
@@ -149,19 +156,10 @@ public class ConsoleApplication {
                 System.out.print("Enter Size (L/ M/ S): \n>>>"); // Validate the sizes
                 String size = input.next();
 
-                System.out.print("Enter Color (values must be in the range of 0 to 255): \n>>> R value: ");
-                int red = input.nextInt();
+                System.out.print("Enter Color : ");
+                String color = input.next();
 
-                System.out.print(">>> G value: ");
-                int green = input.nextInt();
-
-                System.out.print(">>> B value: ");
-                int blue = input.nextInt();
-
-                if (isInvalidColor(red) || isInvalidColor(green) || isInvalidColor(blue)) {
-                    return null;
-                }
-                product = new Clothing(productId, productName, availableItems, price, size, new Color(red, green, blue));
+                product = new Clothing(productId, productName, availableItems, price, size, color);
             }
             default -> {
                 return null;
@@ -170,8 +168,12 @@ public class ConsoleApplication {
         return product;
     }
 
+
+    /*
     private static boolean isInvalidColor(int value) {
         return !(value >= 0 && value <= 255);
     }
+
+     */
 }
 

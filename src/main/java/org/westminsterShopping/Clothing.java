@@ -1,20 +1,28 @@
 package org.westminsterShopping;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Clothing extends Product{
     private String size;
-    private Color color;
+    private String color;
 
 
     public Clothing(String productId, String productName, int availableItems, double price,
-                    String size, Color color) {
+                    String size, String color) {
         super(productId, productName, availableItems, price);
         this.size = size;
         this.color = color;
     }
 
     public Clothing() {};
+
+    @Override
+    public String getCategory() {
+        return "Clothing";
+    }
 
     public String getSize() {
         return size;
@@ -24,21 +32,90 @@ public class Clothing extends Product{
         this.size = size;
     }
 
-    public Color getColor() {
-        return color;
-    }
+    public String getColor() { return color;}
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public JPanel getDetailsForGUI() {
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JButton addToCart = new JButton("Add To Shopping Cart");
+        addToCart.setMargin(new Insets(5, 5, 5, 5));
+
+
+
+        buttonPanel.setBackground(new Color(255, 255,255));
+
+        buttonPanel.add(addToCart, BorderLayout.PAGE_END);
+        buttonPanel.setBorder(new EmptyBorder(new Insets(20,20,30,20)));
+
+        JLabel header = new JLabel("Selected Product - Details");
+        header.setFont(new Font("SansSerif", Font.BOLD, 15));
+
+        JLabel label = new JLabel("Product ID : " + super.getProductId());
+        label.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label1 = new JLabel("Category : " + this.getCategory());
+        label1.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label2 = new JLabel("Name : " + super.getProductName());
+        label2.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label3 = new JLabel("Size : " + this.size);
+        label3.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label4 = new JLabel("Color : " + this.color);
+        label4.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label5 = new JLabel("Items Available : " + super.getAvailableItems());
+        label5.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Set layout to BoxLayout with Y_AXIS orientation
+        panel.setBackground(new Color(255, 255, 255));
+        panel.setPreferredSize(new Dimension(1000, 300));
+
+
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(header);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label1);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label2);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label3);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label4);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label5);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(new Color(255, 255, 255));
+
+        Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
+        mainPanel.setBorder(blackLine);
+
+        mainPanel.add(panel, BorderLayout.CENTER);
+        // Add the button panel to the main panel in the south
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return mainPanel;
+    }
+
 
     @Override
     public String toString() {
         return "Product Type: Clothing \n" +
                 super.toString() +
                 ", Size: " + this.size  +
-                ", RGB Value of Color: Red: " + color.getRed() +
-                " Green: " + color.getGreen() +
-                " Blue: " + color.getBlue();
+                ", Color: " + this.color;
     }
 }

@@ -1,5 +1,6 @@
 package org.westminsterShopping;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -19,6 +20,9 @@ public abstract class Product implements Serializable{
     }
 
     public Product() {};
+
+    public abstract String getCategory();
+    public abstract JPanel getDetailsForGUI();
 
     public String getProductId() {
         return productId;

@@ -1,5 +1,10 @@
 package org.westminsterShopping;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
 public class Electronics extends Product{
     private String brand;
     private int warrantyPeriodInWeeks;
@@ -13,6 +18,8 @@ public class Electronics extends Product{
 
     public Electronics() {};
 
+    public String getCategory() { return "Electronic"; }
+
     public String getBrand() {
         return brand;
     }
@@ -25,9 +32,87 @@ public class Electronics extends Product{
         return warrantyPeriodInWeeks;
     }
 
+
     public void setWarrantyPeriodInWeeks(int warrantyPeriodInWeeks) {
         this.warrantyPeriodInWeeks = warrantyPeriodInWeeks;
     }
+
+    @Override
+    public JPanel getDetailsForGUI() {
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JButton addToCart = new JButton("Add To Shopping Cart");
+        addToCart.setMargin(new Insets(5, 5, 5, 5));
+
+
+
+        buttonPanel.setBackground(new Color(255, 255,255));
+
+        buttonPanel.add(addToCart, BorderLayout.PAGE_END);
+        buttonPanel.setBorder(new EmptyBorder(new Insets(20,20,30,20)));
+
+
+        JLabel header = new JLabel("Selected Product - Details");
+        header.setFont(new Font("SansSerif", Font.BOLD, 15));
+
+        JLabel label = new JLabel("Product ID : " + super.getProductId());
+        label.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label1 = new JLabel("Category : " + this.getCategory());
+        label1.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label2 = new JLabel("Name : " + super.getProductName());
+        label2.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label3 = new JLabel("Brand : " + this.brand);
+        label3.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label4 = new JLabel("Warranty Period In Weeks : " + this.warrantyPeriodInWeeks);
+        label4.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+        JLabel label5 = new JLabel("Items Available : " + super.getAvailableItems());
+        label5.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Set layout to BoxLayout with Y_AXIS orientation
+        panel.setBackground(new Color(255, 255, 255));
+
+
+        panel.setPreferredSize(new Dimension(1000, 300));
+
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(header);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label1);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label2);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label3);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label4);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        panel.add(label5);
+        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(new Color(255, 255, 255));
+
+        Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
+        mainPanel.setBorder(blackLine);
+
+        mainPanel.add(panel, BorderLayout.CENTER);
+        // Add the button panel to the main panel in the south
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return mainPanel;
+    }
+
+
 
     @Override
     public String toString() {
