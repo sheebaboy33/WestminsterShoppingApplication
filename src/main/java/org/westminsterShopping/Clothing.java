@@ -41,18 +41,6 @@ public class Clothing extends Product{
     @Override
     public JPanel getDetailsForGUI() {
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        JButton addToCart = new JButton("Add To Shopping Cart");
-        addToCart.setMargin(new Insets(5, 5, 5, 5));
-
-
-
-        buttonPanel.setBackground(new Color(255, 255,255));
-
-        buttonPanel.add(addToCart, BorderLayout.PAGE_END);
-        buttonPanel.setBorder(new EmptyBorder(new Insets(20,20,30,20)));
-
         JLabel header = new JLabel("Selected Product - Details");
         header.setFont(new Font("SansSerif", Font.BOLD, 15));
 
@@ -100,12 +88,9 @@ public class Clothing extends Product{
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(255, 255, 255));
 
-        Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
-        mainPanel.setBorder(blackLine);
 
         mainPanel.add(panel, BorderLayout.CENTER);
         // Add the button panel to the main panel in the south
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         return mainPanel;
     }

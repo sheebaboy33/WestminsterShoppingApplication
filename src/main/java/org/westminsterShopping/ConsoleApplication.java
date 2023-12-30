@@ -50,11 +50,13 @@ public class ConsoleApplication {
                     break;
 
                 case 104:
-                    JFrame frame = new GUIApplication();
+                    JFrame frame = new ProductDetailsWindow();
                     frame.setTitle("Westminster Shopping Centre");
                     frame.setSize(1000, 1200);
                     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     frame.setVisible(true);
+
+                    System.out.println("GUI Application is now open.");
                     break;
 
                 case 105:
@@ -130,10 +132,10 @@ public class ConsoleApplication {
         System.out.print("Enter Product ID: \n>>>");
         String productId = input.next();
 
-        input.nextLine();
+        //input.nextLine();
 
         System.out.print("Enter Product Name: \n>>>");
-        String productName = input.nextLine();
+        String productName = input.next();
 
         System.out.print("Enter Available Items: \n>>>");
         int availableItems = input.nextInt();
@@ -144,9 +146,9 @@ public class ConsoleApplication {
 
         switch (productType.toLowerCase().trim()) {
             case "electronic" -> {
-                input.nextLine();
+                //input.nextLine();
                 System.out.print("Enter Brand Name: \n>>>");
-                String brand = input.nextLine();
+                String brand = input.next();
 
                 System.out.print("Enter Warranty Period in Weeks: \n>>>");
                 int warrantyPeriod = input.nextInt();
@@ -168,12 +170,5 @@ public class ConsoleApplication {
         return product;
     }
 
-
-    /*
-    private static boolean isInvalidColor(int value) {
-        return !(value >= 0 && value <= 255);
-    }
-
-     */
 }
 

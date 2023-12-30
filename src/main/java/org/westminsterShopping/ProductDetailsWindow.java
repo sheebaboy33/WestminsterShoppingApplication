@@ -1,33 +1,34 @@
 package org.westminsterShopping;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GUIApplication extends JFrame implements ActionListener{
+public class ProductDetailsWindow extends JFrame implements ActionListener{
     static WestminsterShoppingManager manager = new WestminsterShoppingManager();
 
-    JTable table;
+    JTable productTable;
     JTableHeader header;
-    JButton cart;
+    JButton shoppingCartBtn;
     JLabel selectProduct;
     JComboBox<String> displayChoiceComboBox;
+    JPanel productDetailsPanel;
+    JButton addToCartBtn;
+    private OrderSummaryWindow summaryWindow;
 
-    JPanel productDetail;
+    ShoppingCart shoppingCart;
 
 
     // Constructor has way too much code. Reduce it using methods
-    public GUIApplication() {
+    public ProductDetailsWindow() {
 
-        productDetail = new JPanel();
-        productDetail.setLayout(new BorderLayout());
+        productDetailsPanel = new JPanel();
+        productDetailsPanel.setLayout(new BorderLayout());
 
 
         selectProduct = new JLabel("Select Product Category ");
@@ -37,41 +38,60 @@ public class GUIApplication extends JFrame implements ActionListener{
         displayChoiceComboBox.addActionListener(this);
 
 
-        cart = new JButton("Shopping Cart");
-        cart.setMargin(new Insets(5, 5, 5, 5));
+        shoppingCartBtn = new JButton("Shopping Cart");
+        shoppingCartBtn.setMargin(new Insets(5, 5, 5, 5));
+        shoppingCartBtn.addActionListener(this); // This means, notify the frame
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(255, 255,255));
 
         buttonPanel.setLayout(new BorderLayout(0, 0));
-        buttonPanel.add(cart, BorderLayout.EAST);
+        buttonPanel.add(shoppingCartBtn, BorderLayout.EAST);
         buttonPanel.setBorder(new EmptyBorder(new Insets(20,20,0,20)));
 
         ProductTableModel tableModel = new ProductTableModel();
-        table = new JTable(tableModel);
+        productTable = new JTable(tableModel);
 
-        table.addMouseListener(new MouseAdapter() {
+        productTable.setAutoCreateRowSorter(true); // Allowing the user to sort the table
+
+        addToCartBtn = new JButton("Add To Shopping Cart");
+        addToCartBtn.addActionListener(this);
+
+
+        productTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
                 int ID_COLUMN = 0;
                 if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 1) {
-                    int selectedRowIndex = table.getSelectedRow();
+                    int selectedRowIndex = productTable.getSelectedRow();
 
                     // First column includes the product ID which is unique for each product
-                    String productID = (String)table.getValueAt(selectedRowIndex, ID_COLUMN);
+                    String productID = (String) productTable.getValueAt(selectedRowIndex, ID_COLUMN);
 
-                    productDetail.removeAll();
+                    productDetailsPanel.removeAll();
 
-                    JPanel detailsPanel = getProductDetails(productID);
+                    JPanel detailsPanel = getProductDetailsPanel(productID);
 
                     // If the selected row is empty, getProductDetails() returns null
                     if (detailsPanel != null) {
-                        productDetail.add(detailsPanel, BorderLayout.CENTER);
+                        productDetailsPanel.add(detailsPanel, BorderLayout.CENTER);
 
+                        JPanel buttonPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-                        productDetail.revalidate();
-                        productDetail.repaint();
+                        addToCartBtn.setMargin(new Insets(5, 5, 5, 5));
+
+                        buttonPanel1.setBackground(new Color(255, 255,255));
+
+                        buttonPanel1.add(addToCartBtn, BorderLayout.PAGE_END);
+                        buttonPanel1.setBorder(new EmptyBorder(new Insets(20,20,30,20)));
+                        productDetailsPanel.add(buttonPanel1, BorderLayout.SOUTH);
+
+                        Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
+                        productDetailsPanel.setBorder(blackLine);
+
+                        productDetailsPanel.revalidate();
+                        productDetailsPanel.repaint();
                     }
 
                 }
@@ -84,14 +104,14 @@ public class GUIApplication extends JFrame implements ActionListener{
 
 
         for (int i = 0; i < 5; i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            productTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        table.setRowHeight(35);
-        table.setGridColor(Color.BLACK);
+        productTable.setRowHeight(35);
+        productTable.setGridColor(Color.BLACK);
 
-        table.setFont(new Font("Serif", Font.PLAIN, 13));
-        header = table.getTableHeader();
+        productTable.setFont(new Font("Serif", Font.PLAIN, 13));
+        header = productTable.getTableHeader();
         header.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         // Center header text
@@ -99,9 +119,11 @@ public class GUIApplication extends JFrame implements ActionListener{
 
 
         Dimension tableSize = new Dimension(900, 195);
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(productTable);
         scrollPane.setPreferredSize(tableSize);
         scrollPane.setVisible(true);
+
+
 
         JPanel p2 = new JPanel();
         p2.setLayout(new FlowLayout());
@@ -133,7 +155,7 @@ public class GUIApplication extends JFrame implements ActionListener{
         p3.add(buttonPanel, BorderLayout.PAGE_START);
         p3.add(combine, BorderLayout.CENTER);
 
-        p3.add(productDetail, BorderLayout.SOUTH);
+        p3.add(productDetailsPanel, BorderLayout.SOUTH);
 
 
         //Border blackLine = BorderFactory.createLineBorder(Color.black);
@@ -157,13 +179,37 @@ public class GUIApplication extends JFrame implements ActionListener{
             }
 
             // Update table model with filtered products
-            ((ProductTableModel) table.getModel()).updateData(filteredProducts);
+            ((ProductTableModel) productTable.getModel()).updateData(filteredProducts);
+
+        }
+        if (e.getSource() == addToCartBtn){
+            int selectedRowIndex = productTable.getSelectedRow();
+
+            if (selectedRowIndex != -1 ){
+                int PRODUCT_ID_COLUMN = 0;
+                String productId = (String) productTable.getValueAt(selectedRowIndex, PRODUCT_ID_COLUMN);
+                shoppingCart = new ShoppingCart();
+                shoppingCart.addToShoppingCart(productId);
+            }
 
         }
 
+        if (e.getSource() == shoppingCartBtn) {
+            if (summaryWindow == null) {
+
+                summaryWindow = new OrderSummaryWindow();
+                summaryWindow.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        summaryWindow = null; // Reset the reference when the window is closed
+                    }
+                });
+            }
+            summaryWindow.setVisible(true);
+        }
     }
 
-    public JPanel getProductDetails(String productID) {
+    public JPanel getProductDetailsPanel(String productID) {
         return manager.getDataFromID(productID);
     }
 }
