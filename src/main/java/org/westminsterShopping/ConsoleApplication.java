@@ -16,6 +16,8 @@ public class ConsoleApplication {
 
         System.out.println("*".repeat(52) + "\n* Welcome to the Westminster Shopping Application! *\n" + "*".repeat(52));
 
+
+        // Issue when inserting an invalid input as the option
         menuLoop :
         while (true) {
 
@@ -50,6 +52,7 @@ public class ConsoleApplication {
                     break;
 
                 case 104:
+
                     JFrame frame = new ProductDetailsWindow();
                     frame.setTitle("Westminster Shopping Centre");
                     frame.setSize(1000, 1200);
@@ -76,7 +79,7 @@ public class ConsoleApplication {
 
     public static void displayMenu() {
         System.out.println("""
-                \nMenu Options \n
+                \nMenu Options
                 100 - Add New Product to the System.
                 101 - Delete a Product from the System.
                 102 - Display the list of Products in the System.
@@ -132,10 +135,10 @@ public class ConsoleApplication {
         System.out.print("Enter Product ID: \n>>>");
         String productId = input.next();
 
-        //input.nextLine();
+        input.nextLine();
 
         System.out.print("Enter Product Name: \n>>>");
-        String productName = input.next();
+        String productName = input.nextLine();
 
         System.out.print("Enter Available Items: \n>>>");
         int availableItems = input.nextInt();

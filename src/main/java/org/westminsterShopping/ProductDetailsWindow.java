@@ -3,6 +3,7 @@ package org.westminsterShopping;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -10,8 +11,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ProductDetailsWindow extends JFrame implements ActionListener{
-    static WestminsterShoppingManager manager = new WestminsterShoppingManager();
 
+    static WestminsterShoppingManager manager = new WestminsterShoppingManager();
     JTable productTable;
     JTableHeader header;
     JButton shoppingCartBtn;
@@ -20,12 +21,13 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     JPanel productDetailsPanel;
     JButton addToCartBtn;
     private OrderSummaryWindow summaryWindow;
+    ShoppingCart shoppingCart = new ShoppingCart();
 
-    ShoppingCart shoppingCart;
 
 
     // Constructor has way too much code. Reduce it using methods
     public ProductDetailsWindow() {
+
 
         productDetailsPanel = new JPanel();
         productDetailsPanel.setLayout(new BorderLayout());
@@ -52,7 +54,8 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         ProductTableModel tableModel = new ProductTableModel();
         productTable = new JTable(tableModel);
 
-        productTable.setAutoCreateRowSorter(true); // Allowing the user to sort the table
+        //WARNING: row index is bigger than sorter's row count. Most likely this is a wrong sorter usage.
+        productTable.setAutoCreateRowSorter(true); // Allows the user to sort the table
 
         addToCartBtn = new JButton("Add To Shopping Cart");
         addToCartBtn.addActionListener(this);
@@ -117,13 +120,10 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         // Center header text
         ((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
-
         Dimension tableSize = new Dimension(900, 195);
         JScrollPane scrollPane = new JScrollPane(productTable);
         scrollPane.setPreferredSize(tableSize);
         scrollPane.setVisible(true);
-
-
 
         JPanel p2 = new JPanel();
         p2.setLayout(new FlowLayout());
@@ -132,22 +132,18 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         p2.add(selectProduct);
         p2.add(displayChoiceComboBox);
 
-
-        // For the table
         JPanel p1 = new JPanel();
         p1.setBackground(new Color(255, 255,255));
 
         p1.setLayout(new FlowLayout());
         p1.add(scrollPane);
         p1.setBorder(new EmptyBorder(new Insets(30, 30,30,30)));
-        // add to the container and continue the code
 
         JPanel combine = new JPanel();
         combine.setLayout(new BorderLayout());
 
         combine.add(p1, BorderLayout.CENTER);
         combine.add(p2, BorderLayout.NORTH);
-
 
         // For the combox
         JPanel p3 = new JPanel();
@@ -156,10 +152,6 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         p3.add(combine, BorderLayout.CENTER);
 
         p3.add(productDetailsPanel, BorderLayout.SOUTH);
-
-
-        //Border blackLine = BorderFactory.createLineBorder(Color.black);
-        //p3.setBorder(blackLine);
 
         this.add(p3);
 
@@ -185,13 +177,25 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         if (e.getSource() == addToCartBtn){
             int selectedRowIndex = productTable.getSelectedRow();
 
+            //SummaryTableModel cartModel = new SummaryTableModel();
+
             if (selectedRowIndex != -1 ){
                 int PRODUCT_ID_COLUMN = 0;
                 String productId = (String) productTable.getValueAt(selectedRowIndex, PRODUCT_ID_COLUMN);
-                shoppingCart = new ShoppingCart();
                 shoppingCart.addToShoppingCart(productId);
-            }
 
+                SummaryTableModel cartTableModel = new SummaryTableModel();
+                // Check this!!!!
+                //cartTableModel.addProduct();
+
+                /*
+                // Update the cart table in the OrderSummaryWindow
+                if (summaryWindow != null) {
+                    summaryWindow.updateCartTable();
+                }
+
+                 */
+            }
         }
 
         if (e.getSource() == shoppingCartBtn) {
@@ -212,5 +216,13 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     public JPanel getProductDetailsPanel(String productID) {
         return manager.getDataFromID(productID);
     }
+
+    /*
+    public void setOrderSummaryWindow(OrderSummaryWindow summaryWindow) {
+        this.summaryWindow = summaryWindow;
+    }
+
+     */
+
 }
 

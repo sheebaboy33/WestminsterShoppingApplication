@@ -7,14 +7,13 @@ import java.util.List;
 public class ProductTableModel extends AbstractTableModel {
 
     private final String[] COLUMN_NAMES = {"Product ID", "Name", "Category", "Price", "Info"};
-    private final int MIN_COLUMNS = 5;
-
+    private final int MIN_ROWS = 5;
 
     private List<Product> productsToDisplay = WestminsterShoppingManager.productsList;
 
     @Override
     public int getRowCount() {
-        return Math.max(productsToDisplay.size(), MIN_COLUMNS);
+        return Math.max(productsToDisplay.size(), MIN_ROWS);
     }
 
 
