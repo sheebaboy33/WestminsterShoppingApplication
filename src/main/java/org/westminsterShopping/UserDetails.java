@@ -16,11 +16,14 @@ public class UserDetails {
         return false;
     }
 
+    /*
     public void displayUsers() {
         for (User user : userList) {
             System.out.println(user);
         }
     }
+
+     */
 
     public void signUpNewUser(User newUser) {
         userList.add(newUser);
@@ -41,7 +44,6 @@ public class UserDetails {
         } catch (IOException e) {
             System.out.println(e.getMessage() + ", Try again");
         }
-        displayUsers();
     }
 
 
@@ -67,7 +69,6 @@ public class UserDetails {
         } catch(Exception e) {
             System.out.println(e.getMessage() + ", Try again.");
         }
-        displayUsers();
     }
 
 }

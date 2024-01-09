@@ -57,7 +57,6 @@ public class LoginWindow extends JFrame implements ActionListener{
             user = new User(username, password);
 
             UserDetails userDetails = new UserDetails();
-            userDetails.displayUsers();
 
             if (userDetails.isUserAvailable(username, password)) {
                 dispose();

@@ -10,6 +10,7 @@ public class SignUpWindow extends JFrame{
     private JPasswordField passwordField;
     JButton registerButton;
     User user;
+    static Boolean newCustomer = false;
 
     public SignUpWindow() {
 
@@ -41,6 +42,7 @@ public class SignUpWindow extends JFrame{
 
                 if (!(username.equals("") || password.equals(""))) {
                     if (!userDetails.isUserAvailable(username, password)) {
+                        newCustomer = true;
                         userDetails.signUpNewUser(user);
                         dispose();
                         JOptionPane.showMessageDialog(SignUpWindow.this, "SignUp Successful!");

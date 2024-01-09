@@ -3,6 +3,7 @@ package org.westminsterShopping;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -23,6 +24,7 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     private OrderSummaryWindow summaryWindow;
     ShoppingCart shoppingCart = new ShoppingCart();
 
+    AbstractTableModel cartTableModel;
 
 
     // Constructor has way too much code. Reduce it using methods
@@ -200,16 +202,46 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
             ((ProductTableModel) productTable.getModel()).updateData(filteredProducts);
         }
 
-        if (e.getSource() == addToCartBtn){
+        if (e.getSource() == addToCartBtn) {
             int selectedRowIndex = productTable.getSelectedRow();
 
-            if (selectedRowIndex != -1 ){
+            if (selectedRowIndex != -1) {
 
                 int PRODUCT_ID_COLUMN = 0;
                 String productId = (String) productTable.getValueAt(selectedRowIndex, PRODUCT_ID_COLUMN);
                 shoppingCart.addToShoppingCart(productId);
 
                 ProductTableModel model = (ProductTableModel) productTable.getModel();
+
+                cartTableModel = new SummaryTableModel();
+                cartTableModel.fireTableDataChanged();
+
+                // Trying the final price here
+
+                /*
+                int total = 0;
+
+                for (int i = 0; i < cartTableModel.getRowCount(); i++) {
+                    if (cartTableModel.getValueAt(i, 2) != null) {
+
+                        total += (Double) cartTableModel.getValueAt(i, 2);
+                    }
+                }
+
+                System.out.println(total);
+
+                 */
+
+                if (summaryWindow != null) {
+                    //System.out.println(summaryWindow.getTableValue(cartTableModel));
+                    summaryWindow.updateTotal(shoppingCart.getTotalPrice());
+
+                    if (shoppingCart.getThreeItemsDiscount()) {
+                        summaryWindow.updateThreeItemDiscount();
+                    }
+
+                    summaryWindow.updateFinalPrice();
+                }
             }
         }
 

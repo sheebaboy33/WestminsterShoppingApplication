@@ -69,6 +69,8 @@ public class Clothing extends Product{
         panel.setPreferredSize(new Dimension(1000, 300));
 
 
+        // Surely can use a method here
+
         panel.add(Box.createRigidArea(new Dimension(10, 15)));
         panel.add(header);
         panel.add(Box.createRigidArea(new Dimension(10, 15)));

@@ -63,4 +63,33 @@ public class ShoppingCart {
             System.out.println(product);
         }
     }
+
+    public double getTotalPrice() {
+        double total = 0;
+
+        for (Product product: productsInCart) {
+            total += product.getPrice() * getQuantity(product.getProductId());
+        }
+        return total;
+    }
+
+    public int getQuantity(String productId) {
+        return productQuantity.get(productId);
+    }
+
+    public boolean getThreeItemsDiscount() {
+        int clothingQuantity = 0;
+        int electronicQuantity = 0;
+
+        for (Product product : productsInCart) {
+            if (product instanceof Clothing) {
+                clothingQuantity += getQuantity(product.getProductId());
+            } else if (product instanceof Electronics) {
+                electronicQuantity += getQuantity(product.getProductId());
+            }
+        }
+
+        return clothingQuantity >= 3 || electronicQuantity >= 3;
+    }
+
 }
