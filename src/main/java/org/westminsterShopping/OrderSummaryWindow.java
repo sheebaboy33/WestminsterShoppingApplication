@@ -112,7 +112,7 @@ public class OrderSummaryWindow extends JFrame {
         label7.setHorizontalAlignment(SwingConstants.RIGHT);
 
 
-        finalPrice = total - firstPurchaseDiscount - threeItemsDiscount;
+        finalPrice = total - (firstPurchaseDiscount + threeItemsDiscount);
         label8 = new JLabel(finalPrice + " £");
         label8.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -155,7 +155,13 @@ public class OrderSummaryWindow extends JFrame {
         System.out.println(firstPurchaseDiscount);
         System.out.println(threeItemsDiscount);
         System.out.println(finalPrice);
-        //finalPrice = total - firstPurchaseDiscount - threeItemsDiscount;
+
+        if (cartDetails.getThreeItemsDiscount()){
+            threeItemsDiscount = total * 0.2;
+        } else if (SignUpWindow.newCustomer) {
+            firstPurchaseDiscount = total * 0.1;
+        }
+        finalPrice = total - firstPurchaseDiscount - threeItemsDiscount;
 
         label8.setText(String.valueOf(finalPrice) + " £");
 
