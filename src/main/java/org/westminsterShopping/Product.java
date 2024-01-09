@@ -2,7 +2,7 @@ package org.westminsterShopping;
 
 import javax.swing.*;
 import java.io.Serializable;
-import java.util.Comparator;
+
 
 public abstract class Product implements Serializable{
 

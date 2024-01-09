@@ -5,8 +5,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class WestminsterShoppingManager implements ShoppingManager {
-    public static ArrayList<Product> productsList = new ArrayList<>(50);
-    public static int productCount = 0;
+    static ArrayList<Product> productsList = new ArrayList<>(50);
+    static int productCount = 0;
+    UserDetails userInfo = new UserDetails();
 
 
     @Override
@@ -68,7 +69,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
             for (Product product : productsList) {
                 oos.writeObject(product);
             }
-            System.out.println("Successfully saved to file.");
+            System.out.println("Product Details Successfully Saved to File.");
 
             fos.close();
             oos.close();
@@ -80,6 +81,9 @@ public class WestminsterShoppingManager implements ShoppingManager {
 
     @Override
     public void retrieveDataFromFile(){
+
+        // Retrieving user data back to the system
+        userInfo.retrieveDataFromFile();
 
         try {
             FileInputStream fis = new FileInputStream("WestminsterProductDetails.txt");

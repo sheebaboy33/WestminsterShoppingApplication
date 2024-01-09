@@ -45,7 +45,6 @@ public class OrderSummaryWindow extends JFrame {
         // Center header text
         ((DefaultTableCellRenderer) tableHeader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
-
         Dimension tableSize = new Dimension(850, 275);
 
         JPanel panel = new JPanel();

@@ -61,6 +61,9 @@ public class LoginWindow extends JFrame implements ActionListener{
 
             if (userDetails.isUserAvailable(username, password)) {
                 dispose();
+
+                // Saving the user data upon user login
+                userDetails.saveUserToFile();
                 JOptionPane.showMessageDialog(LoginWindow.this, "Login successful!");
 
                 // Open the Shopping Application
