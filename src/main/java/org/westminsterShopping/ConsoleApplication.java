@@ -53,11 +53,13 @@ public class ConsoleApplication {
 
                 case 104:
 
-                    JFrame frame = new ProductDetailsWindow();
-                    frame.setTitle("Westminster Shopping Centre");
-                    frame.setSize(1000, 1200);
+                    //JFrame frame = new ProductDetailsWindow();
+                    JFrame frame = new LoginWindow();
+                    frame.setTitle("Login Page - Westminster Shopping Centre");
+                    frame.setSize(500, 300);
                     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     frame.setVisible(true);
+                    frame.setLocation(400, 250);
 
                     System.out.println("GUI Application is now open.");
                     break;

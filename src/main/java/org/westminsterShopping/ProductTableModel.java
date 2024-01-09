@@ -36,7 +36,6 @@ public class ProductTableModel extends AbstractTableModel {
                 temp = productsToDisplay.get(rowIndex).getCategory();
             } else if (columnIndex == 3) {
                 temp = (Double) productsToDisplay.get(rowIndex).getPrice();
-
             } else if (columnIndex == 4) {
                 if (productsToDisplay.get(rowIndex) instanceof Electronics) {
                     temp = ((Electronics) productsToDisplay.get(rowIndex)).getBrand() + ", " + ((Electronics) productsToDisplay.get(rowIndex)).getWarrantyPeriodInWeeks() + " weeks warranty";

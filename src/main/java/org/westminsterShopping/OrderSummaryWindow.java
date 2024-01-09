@@ -37,7 +37,6 @@ public class OrderSummaryWindow extends JFrame {
 
         cartTable.setRowHeight(100);
         cartTable.setGridColor(Color.BLACK);
-        //cartTable.setPreferredSize(new Dimension(600, 300));
 
         cartTable.setFont(new Font("Serif", Font.PLAIN, 13));
         tableHeader = cartTable.getTableHeader();
@@ -66,6 +65,9 @@ public class OrderSummaryWindow extends JFrame {
         panel.add(scrollPane);
 
         this.add(panel, BorderLayout.CENTER);
+
+
+        JPanel pricePanel = new JPanel();
 
     }
 }

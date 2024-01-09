@@ -3,9 +3,9 @@ package org.westminsterShopping;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ProductDetailsWindow extends JFrame implements ActionListener{
 
     static WestminsterShoppingManager manager = new WestminsterShoppingManager();
-    JTable productTable;
+    static JTable productTable;
     JTableHeader header;
     JButton shoppingCartBtn;
     JLabel selectProduct;
@@ -52,7 +52,31 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         buttonPanel.setBorder(new EmptyBorder(new Insets(20,20,0,20)));
 
         ProductTableModel tableModel = new ProductTableModel();
-        productTable = new JTable(tableModel);
+        productTable = new JTable(tableModel) {
+            /**
+             *
+             * @param renderer  the <code>TableCellRenderer</code> to prepare
+             * @param row       the row of the cell to render, where 0 is the first row
+             * @param column    the column of the cell to render,
+             *                  where 0 is the first column
+             * @return component with colored row
+             */
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component comp = super.prepareRenderer(renderer, row, column);
+                String productId = (String) getModel().getValueAt(row, 0); // Change 4 to a variable
+                int items = manager.extractAvailableItems(productId);
+
+                if (items != -1 && items < 3) {
+                    comp.setBackground(Color.RED);
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(getBackground());
+                    comp.setForeground(getForeground());
+                };
+                return comp;
+            }
+        };
 
         //WARNING: row index is bigger than sorter's row count. Most likely this is a wrong sorter usage.
         productTable.setAutoCreateRowSorter(true); // Allows the user to sort the table
@@ -62,6 +86,10 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
 
 
         productTable.addMouseListener(new MouseAdapter() {
+            /**
+             *
+             * @param e the event to be processed
+             */
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -96,7 +124,6 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
                         productDetailsPanel.revalidate();
                         productDetailsPanel.repaint();
                     }
-
                 }
             }
         });
@@ -154,7 +181,6 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         p3.add(productDetailsPanel, BorderLayout.SOUTH);
 
         this.add(p3);
-
     }
 
     @Override
@@ -172,29 +198,18 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
 
             // Update table model with filtered products
             ((ProductTableModel) productTable.getModel()).updateData(filteredProducts);
-
         }
+
         if (e.getSource() == addToCartBtn){
             int selectedRowIndex = productTable.getSelectedRow();
 
-            //SummaryTableModel cartModel = new SummaryTableModel();
-
             if (selectedRowIndex != -1 ){
+
                 int PRODUCT_ID_COLUMN = 0;
                 String productId = (String) productTable.getValueAt(selectedRowIndex, PRODUCT_ID_COLUMN);
                 shoppingCart.addToShoppingCart(productId);
 
-                SummaryTableModel cartTableModel = new SummaryTableModel();
-                // Check this!!!!
-                //cartTableModel.addProduct();
-
-                /*
-                // Update the cart table in the OrderSummaryWindow
-                if (summaryWindow != null) {
-                    summaryWindow.updateCartTable();
-                }
-
-                 */
+                ProductTableModel model = (ProductTableModel) productTable.getModel();
             }
         }
 
@@ -216,13 +231,5 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     public JPanel getProductDetailsPanel(String productID) {
         return manager.getDataFromID(productID);
     }
-
-    /*
-    public void setOrderSummaryWindow(OrderSummaryWindow summaryWindow) {
-        this.summaryWindow = summaryWindow;
-    }
-
-     */
-
 }
 

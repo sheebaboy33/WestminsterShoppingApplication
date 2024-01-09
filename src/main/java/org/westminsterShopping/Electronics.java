@@ -93,8 +93,6 @@ public class Electronics extends Product{
 
 
         mainPanel.add(panel, BorderLayout.CENTER);
-        // Add the button panel to the main panel in the south
-        //mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         return mainPanel;
     }

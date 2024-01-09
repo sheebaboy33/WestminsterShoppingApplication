@@ -25,6 +25,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
     }
 
+
     @Override
     public String deleteProduct(String productId) {
 
@@ -74,8 +75,8 @@ public class WestminsterShoppingManager implements ShoppingManager {
         } catch (IOException e) {
             System.out.println(e.getMessage() + ", Try again.");
         }
-
     }
+
 
     @Override
     public void retrieveDataFromFile(){
@@ -94,7 +95,6 @@ public class WestminsterShoppingManager implements ShoppingManager {
                     break;
                 }
             }
-
             fis.close();
             ois.close();
 
@@ -104,7 +104,8 @@ public class WestminsterShoppingManager implements ShoppingManager {
         }
     }
 
-    public JPanel getDataFromID(String productId) {
+
+    public JPanel getDataFromID(String productId) { // Change the name to give the meaning for the GUI
         for (Product product: productsList) {
             if (product.getProductId().equals(productId)) {
                 return product.getDetailsForGUI();
@@ -123,6 +124,16 @@ public class WestminsterShoppingManager implements ShoppingManager {
             }
         }
         return filteredProducts;
+    }
+
+
+    public int extractAvailableItems(String productId) {
+        for (Product product: productsList) {
+            if (product.getProductId().equals(productId)) {
+                return product.getAvailableItems();
+            }
+        }
+        return -1; // TODO: Make sure when entering available items from the console the values must be grater than 1
     }
 }
 

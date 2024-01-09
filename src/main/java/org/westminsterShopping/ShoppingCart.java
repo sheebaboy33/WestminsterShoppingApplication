@@ -22,7 +22,7 @@ public class ShoppingCart {
                     // If it is, increment the quantity by 1
                     int quantity = productQuantity.get(productId);
                     productQuantity.replace(productId, quantity, quantity + 1);
-                    //productQuantity.put(productId, quantity + 1);
+
                 } else {
                     // If it's not, add it with a quantity of 1
                     productQuantity.put(productId, 1);
