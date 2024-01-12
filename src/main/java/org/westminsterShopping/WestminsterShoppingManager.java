@@ -5,8 +5,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class WestminsterShoppingManager implements ShoppingManager {
-    static ArrayList<Product> productsList = new ArrayList<>(50);
-    static int productCount = 0;
+    public static ArrayList<Product> productsList = new ArrayList<>(50);
+    public static int productCount = 0;
     private final UserDetails USERINFO = new UserDetails();
 
 

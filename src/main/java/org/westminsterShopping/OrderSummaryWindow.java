@@ -9,7 +9,6 @@ import java.awt.*;
 
 
 public class OrderSummaryWindow extends JFrame {
-
     static JTable cartTable;
     JTableHeader tableHeader;
     double total = 0;
@@ -19,7 +18,6 @@ public class OrderSummaryWindow extends JFrame {
     double finalPrice;
     double firstPurchaseDiscount = 0;
     double threeItemsDiscount = 0;
-
     private ShoppingCart cartDetails = new ShoppingCart();
 
     public OrderSummaryWindow() {
@@ -71,8 +69,9 @@ public class OrderSummaryWindow extends JFrame {
 
         panel.add(scrollPane);
 
-        JPanel pricePanel = new JPanel(new GridLayout(4, 2));
+        //JPanel pricePanel = new JPanel(new GridLayout(4, 2));
 
+        /*
         double total = cartDetails.getTotalPrice();
 
         // Create a JLabel with right-aligned text
@@ -129,7 +128,85 @@ public class OrderSummaryWindow extends JFrame {
         this.add(panel, BorderLayout.CENTER);
         this.add(pricePanel, BorderLayout.SOUTH);
 
+         */
+
+        //JPanel panel = createCartPanel();
+        JPanel pricePanel = createPricePanel();
+        //pricePanel.setSize(650, 300);
+
+        this.add(panel, BorderLayout.NORTH);
+        this.add(pricePanel, BorderLayout.CENTER);
+
     }
+
+
+    private JPanel createPricePanel() {
+        double total = cartDetails.getTotalPrice();
+
+        JPanel pricePanel = new JPanel(new GridLayout(4, 2));
+        //pricePanel.setSize(new Dimension(50, 50));
+        pricePanel.setBounds(100, 100, 100, 400);
+
+        JLabel label1 = new JLabel("Total ");
+        label1.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        label2 = new JLabel(String.valueOf(total) + "£");
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel label3 = new JLabel("First Purchase Discount (10%)");
+        label3.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        JLabel label4;
+        if (SignUpWindow.newCustomer) {
+            firstPurchaseDiscount = total * 0.1;
+            label4 = new JLabel(firstPurchaseDiscount + " £");
+        } else {
+            label4 = new JLabel("-");
+        }
+        label4.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel label5 = new JLabel("Three items the same category Discount (20%)");
+        label5.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        if (cartDetails.getThreeItemsDiscount()) {
+            threeItemsDiscount = total * 0.2;
+            label6 = new JLabel(String.valueOf(threeItemsDiscount) + "£");
+        } else {
+            label6 = new JLabel("-");
+        }
+        label6.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel label7 = new JLabel("Final Total ");
+        label7.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        finalPrice = total - (firstPurchaseDiscount + threeItemsDiscount);
+        label8 = new JLabel(finalPrice + " £");
+        // label8.getText().
+
+        Font font = new Font("Monospaced", Font.BOLD, 16);
+        label8.setFont(font);
+        label8.setHorizontalAlignment(SwingConstants.CENTER);
+
+        label1.setFont(font);
+        label7.setFont(font);
+
+        // Add labels to the price panel
+        pricePanel.add(label1);
+        pricePanel.add(label2);
+        pricePanel.add(label3);
+        pricePanel.add(label4);
+        pricePanel.add(label5);
+        pricePanel.add(label6);
+        pricePanel.add(label7);
+        pricePanel.add(label8);
+
+        //pricePanel.setBackground(new Color());
+
+        return pricePanel;
+    }
+
+
+
 
     public void updateTotal(double newTotal) {
         // Update the total
@@ -141,6 +218,8 @@ public class OrderSummaryWindow extends JFrame {
         // Repaint the label to reflect the changes
         label2.repaint();
     }
+
+
 
     public void updateThreeItemDiscount() {
         // Update the text of label6 with the new total
@@ -164,7 +243,6 @@ public class OrderSummaryWindow extends JFrame {
         // Repaint the label to reflect the changes
         label8.repaint();
     }
-
 }
 
 

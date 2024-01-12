@@ -19,16 +19,17 @@ public class ConsoleApplication {
 
         menuLoop :
         while (true) {
-            int choice = 0;
+            int choice;
 
             displayMenu();
             System.out.print("Select an option: \n>>>");
 
-            //displayMenu();
             try {
                 choice = input.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println(e.getMessage() + ", Try again." );
+                System.out.println("Invalid option, Try again." );
+                input.nextLine(); // skip the invalid line in the buffer
+                continue ;
             }
 
 
@@ -53,6 +54,7 @@ public class ConsoleApplication {
 
                 case 104:
 
+                    // Inorder to create a new GUI, both the product and login windows of the GUI must be closed
                     if (ProductDetailsWindow.getProductWindowState() == null && LoginWindow.getLoginInstanceState() == null) {
                         LoginWindow frame = LoginWindow.getInstance();
                         frame.setTitle("Login Page - Westminster Shopping Centre");
@@ -89,7 +91,6 @@ public class ConsoleApplication {
                 103 - Save to File.
                 104 - Open GUI for Customer.
                 105 - Quit the Application.
-                
                 """);
     }
 
@@ -162,6 +163,7 @@ public class ConsoleApplication {
             case "clothing" -> {
                 System.out.print("Enter Size (L/ M/ S): \n>>>"); // Validate the sizes
                 String size = input.next();
+                size = validateClothSize(size);
 
                 System.out.print("Enter Color : ");
                 String color = input.next();
@@ -173,6 +175,19 @@ public class ConsoleApplication {
             }
         }
         return product;
+    }
+
+
+    public static String validateClothSize(String size) {
+        String formattedSize = size.toLowerCase().trim();
+
+        while (!formattedSize.equals("l") && !formattedSize.equals("m") && !formattedSize.equals("s")) {
+            System.out.println("Invalid size. Please enter L, M or S");
+
+            System.out.print(">>> ");
+            formattedSize = input.next().toLowerCase().trim();
+        }
+        return formattedSize.toUpperCase();
     }
 
 
