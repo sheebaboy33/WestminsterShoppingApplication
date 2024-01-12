@@ -15,9 +15,7 @@ public class LoginWindow extends JFrame implements ActionListener{
     User user;
 
     private LoginWindow() {
-        if (loginFrame == null) {
-            initializeComponents();
-        }
+       initializeComponents();
     }
 
     private void initializeComponents(){
@@ -55,9 +53,13 @@ public class LoginWindow extends JFrame implements ActionListener{
 
 
     public static LoginWindow getInstance() {
-        if (loginFrame == null) {
+        if (loginFrame == null ) {
             loginFrame = new LoginWindow();
         }
+        return loginFrame;
+    }
+
+    public static LoginWindow getLoginInstanceState() {
         return loginFrame;
     }
 
@@ -78,11 +80,13 @@ public class LoginWindow extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(LoginWindow.this, "Login successful!");
 
                 // Open the Shopping Application
-                JFrame frame = new ProductDetailsWindow();
-                frame.setTitle("Westminster Shopping Centre");
-                frame.setSize(1000, 1200);
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                frame.setVisible(true);
+                //if (ProductDetailsWindow.getProductsWindowInstance() == null) {
+                    JFrame frame = ProductDetailsWindow.getProductsWindowInstance();
+                    frame.setTitle("Westminster Shopping Centre");
+                    frame.setSize(1000, 1200);
+                    frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+                    frame.setVisible(true);
+                //}
 
             } else {
                 JOptionPane.showMessageDialog(LoginWindow.this, "Invalid username or password");

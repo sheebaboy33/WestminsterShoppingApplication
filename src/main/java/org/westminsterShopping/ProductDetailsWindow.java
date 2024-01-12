@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ProductDetailsWindow extends JFrame implements ActionListener{
-
+    private static ProductDetailsWindow productsWindowInstance = null;
     static WestminsterShoppingManager manager = new WestminsterShoppingManager();
     static JTable productTable;
     JTableHeader header;
@@ -24,11 +24,10 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     private OrderSummaryWindow summaryWindow;
     ShoppingCart shoppingCart = new ShoppingCart();
     AbstractTableModel cartTableModel, tableModel;
-    // AbstractTableModel tableModel;
 
 
     // Constructor has way too much code. Reduce it using methods
-    public ProductDetailsWindow() {
+    private ProductDetailsWindow() {
 
 
         // Add a condition to check if the window is null
@@ -184,6 +183,17 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         p3.add(productDetailsPanel, BorderLayout.SOUTH);
 
         this.add(p3);
+    }
+
+    public static ProductDetailsWindow getProductsWindowInstance() {
+        if (productsWindowInstance == null) {
+            productsWindowInstance = new ProductDetailsWindow();
+        }
+        return productsWindowInstance;
+    }
+
+    public static ProductDetailsWindow getProductWindowState() {
+        return productsWindowInstance;
     }
 
 

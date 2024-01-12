@@ -6,9 +6,10 @@ import java.util.Scanner;
 
 import static org.westminsterShopping.WestminsterShoppingManager.productsList;
 
+
 public class ConsoleApplication {
     static ShoppingManager manager = new WestminsterShoppingManager();
-    static Scanner input = new Scanner(System.in);
+    public static Scanner input = new Scanner(System.in);
 
 
     public static void main(String[] args){
@@ -16,21 +17,20 @@ public class ConsoleApplication {
 
         System.out.println("*".repeat(52) + "\n* Welcome to the Westminster Shopping Application! *\n" + "*".repeat(52));
 
-
-        // Issue when inserting an invalid input as the option
         menuLoop :
         while (true) {
-
-            displayMenu();
-
-            System.out.print("Select an option: \n>>>");
             int choice = 0;
 
+            displayMenu();
+            System.out.print("Select an option: \n>>>");
+
+            //displayMenu();
             try {
                 choice = input.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage() + ", Try again." );
             }
+
 
             switch (choice) {
                 case 100:
@@ -38,9 +38,9 @@ public class ConsoleApplication {
                     break;
 
                 case 101:
-                    System.out.println("Enter the Product ID: \n");
+                    System.out.println("Enter the Product ID: ");
                     String productId = input.next();
-                    manager.deleteProduct(productId);
+                    System.out.println(manager.deleteProduct(productId));
                     break;
 
                 case 102:
@@ -53,13 +53,14 @@ public class ConsoleApplication {
 
                 case 104:
 
-                    //JFrame frame = new ProductDetailsWindow();
-                    LoginWindow frame = LoginWindow.getInstance();
-                    frame.setTitle("Login Page - Westminster Shopping Centre");
-                    frame.setSize(500, 300);
-                    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                    frame.setVisible(true);
-                    frame.setLocation(400, 250);
+                    if (ProductDetailsWindow.getProductWindowState() == null && LoginWindow.getLoginInstanceState() == null) {
+                        LoginWindow frame = LoginWindow.getInstance();
+                        frame.setTitle("Login Page - Westminster Shopping Centre");
+                        frame.setSize(500, 300);
+                        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        frame.setVisible(true);
+                        frame.setLocation(400, 250);
+                    }
 
                     System.out.println("GUI Application is now open.");
                     break;
@@ -71,11 +72,11 @@ public class ConsoleApplication {
 
                 default:
                     System.out.println("Invalid option.Please try again!");
-                    displayMenu();
                     break;
             }
         }
         input.close();
+        System.exit(0);
     }
 
 
@@ -97,7 +98,6 @@ public class ConsoleApplication {
         try {
             Product product = getProductInput();
 
-
             if (product != null) {
 
                 for (Product checkProduct: productsList) {
@@ -110,9 +110,7 @@ public class ConsoleApplication {
             }
             else
                 System.out.println("""
-                        Invalid input. Please try again by checking for the errors below.
-                        -Product must be either 'Electronic' or 'Clothing'
-                        -RGB Colors should be in the range of 0-255
+                        Invalid input. Make sure the Product must be either 'Electronic' or 'Clothing'
                         """);
 
         } catch (InputMismatchException e) {
@@ -136,8 +134,10 @@ public class ConsoleApplication {
 
         System.out.print("Enter Product ID: \n>>>");
         String productId = input.next();
+        productId = validateProductId(productId);
 
-        input.nextLine();
+
+        input.nextLine(); // Skipping the extra line in the buffer
 
         System.out.print("Enter Product Name: \n>>>");
         String productName = input.nextLine();
@@ -151,7 +151,7 @@ public class ConsoleApplication {
 
         switch (productType.toLowerCase().trim()) {
             case "electronic" -> {
-                //input.nextLine();
+
                 System.out.print("Enter Brand Name: \n>>>");
                 String brand = input.next();
 
@@ -175,5 +175,37 @@ public class ConsoleApplication {
         return product;
     }
 
+
+    public static String validateProductId(String productId) {
+        boolean correctFormat = checkFormat(productId);
+
+        while (!correctFormat || !checkUniqueId(productId)) {
+            System.out.println("Invalid ProductId. Please check for the following conditions,\n" +
+                    "-Should start with an Uppercase letter followed by 3 numerals.\n" +
+                    "-Must be Unique from existing products in the system.\nEx: A001");
+
+            System.out.print(">>> ");
+            productId = input.next();
+
+            correctFormat = checkFormat(productId);
+        }
+        return productId;
+    }
+
+    public static boolean checkUniqueId(String productId) {
+        for (Product checkProduct: productsList) {
+            if (checkProduct.getProductId().equals(productId)) {
+                //System.out.println("ProductId cannot be the same. Please Try again.");
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public static boolean checkFormat(String productId){
+        String requiredPattern = "[A-Z]\\d{3}"; // Required regular expression Ex: A001
+        return productId.matches(requiredPattern);
+    }
 }
 

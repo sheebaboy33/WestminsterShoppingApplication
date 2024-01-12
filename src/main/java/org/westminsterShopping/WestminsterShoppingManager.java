@@ -15,7 +15,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
         if (productsList.size() < 50) {
             productsList.add(product);
             productCount++;
-            System.out.println(productsList.size());
+            // System.out.println(productsList.size());
 
             System.out.println(product.getProductName() +
                     " has been successfully added to the product list.");
@@ -69,7 +69,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
             for (Product product : productsList) {
                 oos.writeObject(product);
             }
-            System.out.println("Product Details Successfully Saved to File.");
+            System.out.println("Successfully Saved Details To The File.");
 
             fos.close();
             oos.close();
@@ -102,9 +102,9 @@ public class WestminsterShoppingManager implements ShoppingManager {
             fis.close();
             ois.close();
 
-            System.out.println("Data has been successfully retrieved from the file.");
+            System.out.println("Successfully Retrieved Data from Files.");
         } catch (Exception e) {
-            System.out.println(e.getMessage() + ", Try again.");
+            // System.out.println();
         }
     }
 

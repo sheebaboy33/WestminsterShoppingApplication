@@ -29,7 +29,7 @@ public class UserDetails {
             for (User user : userList) {
                 oos.writeObject(user);
             }
-            System.out.println("User Details Saved to File.");
+            // System.out.println("User Details Saved to File."); (One common message would be sufficient)
 
             fos.close();
             oos.close();
@@ -55,8 +55,6 @@ public class UserDetails {
             }
             fis.close();
             ois.close();
-
-            System.out.println("Data Successfully Retrieved From The Users File.");
 
         } catch(Exception e) {
             System.out.println(e.getMessage() + ", Try again.");
