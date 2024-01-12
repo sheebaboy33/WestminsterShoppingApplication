@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginWindow extends JFrame implements ActionListener{
-
+    private static LoginWindow loginFrame = null; // Instance of the singleton class
     private JTextField usernameField;
     private JPasswordField passwordField;
     JButton loginButton;
@@ -14,9 +14,13 @@ public class LoginWindow extends JFrame implements ActionListener{
     SignUpWindow registerWindow;
     User user;
 
-    public LoginWindow() {
+    private LoginWindow() {
+        if (loginFrame == null) {
+            initializeComponents();
+        }
+    }
 
-
+    private void initializeComponents(){
         JPanel panel = new JPanel(new GridLayout(3, 2));
 
         JLabel usernameLabel = new JLabel("Username:");
@@ -47,6 +51,14 @@ public class LoginWindow extends JFrame implements ActionListener{
 
         add(panel, BorderLayout.NORTH);
         add(registerPanel, BorderLayout.SOUTH);
+    }
+
+
+    public static LoginWindow getInstance() {
+        if (loginFrame == null) {
+            loginFrame = new LoginWindow();
+        }
+        return loginFrame;
     }
 
     public void actionPerformed(ActionEvent e) {

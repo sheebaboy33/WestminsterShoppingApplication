@@ -14,7 +14,6 @@ public class SummaryTableModel extends AbstractTableModel {
     Map<String, Integer> quantity = ShoppingCart.productQuantity;
 
 
-
     @Override
     public int getRowCount() {
         return Math.max(productCart.size(), MIN_ROWS);

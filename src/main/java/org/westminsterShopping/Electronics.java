@@ -38,59 +38,51 @@ public class Electronics extends Product{
 
     @Override
     public JPanel getDetailsForGUI() {
+        JPanel panel = createPanelWithDetails();
+        return createMainPanel(panel);
+    }
 
-        JLabel header = new JLabel("Selected Product - Details");
-        header.setFont(new Font("SansSerif", Font.BOLD, 15));
-
-        JLabel label = new JLabel("Product ID : " + super.getProductId());
-        label.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-        JLabel label1 = new JLabel("Category : " + this.getCategory());
-        label1.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-        JLabel label2 = new JLabel("Name : " + super.getProductName());
-        label2.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-        JLabel label3 = new JLabel("Brand : " + this.brand);
-        label3.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-        JLabel label4 = new JLabel("Warranty Period In Weeks : " + this.warrantyPeriodInWeeks);
-        label4.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-        JLabel label5 = new JLabel("Items Available : " + super.getAvailableItems());
-        label5.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
+    private JPanel createPanelWithDetails() {
+        JLabel header = createHeaderLabel();
+        JLabel label = createLabel("Product ID : " + super.getProductId());
+        JLabel label1 = createLabel("Category : " + this.getCategory());
+        JLabel label2 = createLabel("Name : " + super.getProductName());
+        JLabel label3 = createLabel("Brand : " + this.brand);
+        JLabel label4 = createLabel("Warranty Period In Weeks : " + this.warrantyPeriodInWeeks);
+        JLabel label5 = createLabel("Items Available : " + super.getAvailableItems());
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Set layout to BoxLayout with Y_AXIS orientation
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(new Color(255, 255, 255));
-
-
         panel.setPreferredSize(new Dimension(1000, 300));
 
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(header);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(label1);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(label2);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(label3);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(label4);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
-        panel.add(label5);
-        panel.add(Box.createRigidArea(new Dimension(10, 15)));
+        addComponentsToPanel(panel, header, label, label1, label2, label3, label4, label5);
+        return panel;
+    }
 
+    private JLabel createHeaderLabel() {
+        JLabel header = new JLabel("Selected Product - Details");
+        header.setFont(new Font("SansSerif", Font.BOLD, 15));
+        return header;
+    }
 
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        return label;
+    }
+
+    private void addComponentsToPanel(JPanel panel, Component... components) { // Using Varargs
+        for (Component component : components) {         // Iterating through the array of components
+            panel.add(Box.createRigidArea(new Dimension(10, 15)));
+            panel.add(component);
+        }
+    }
+
+    private JPanel createMainPanel(JPanel panel) {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(255, 255, 255));
-
-
         mainPanel.add(panel, BorderLayout.CENTER);
-
         return mainPanel;
     }
 

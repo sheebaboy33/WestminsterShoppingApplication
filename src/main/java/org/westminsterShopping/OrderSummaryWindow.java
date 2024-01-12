@@ -20,7 +20,7 @@ public class OrderSummaryWindow extends JFrame {
     double firstPurchaseDiscount = 0;
     double threeItemsDiscount = 0;
 
-    ShoppingCart cartDetails = new ShoppingCart();
+    private ShoppingCart cartDetails = new ShoppingCart();
 
     public OrderSummaryWindow() {
 
@@ -151,10 +151,6 @@ public class OrderSummaryWindow extends JFrame {
     }
 
     public void updateFinalPrice() {
-        // Update the text of label6 with the new total
-        System.out.println(firstPurchaseDiscount);
-        System.out.println(threeItemsDiscount);
-        System.out.println(finalPrice);
 
         if (cartDetails.getThreeItemsDiscount()){
             threeItemsDiscount = total * 0.2;

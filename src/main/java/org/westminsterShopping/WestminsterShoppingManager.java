@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class WestminsterShoppingManager implements ShoppingManager {
     static ArrayList<Product> productsList = new ArrayList<>(50);
     static int productCount = 0;
-    UserDetails userInfo = new UserDetails();
+    private final UserDetails USERINFO = new UserDetails();
 
 
     @Override
@@ -83,7 +83,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
     public void retrieveDataFromFile(){
 
         // Retrieving user data back to the system
-        userInfo.retrieveDataFromFile();
+        USERINFO.retrieveDataFromFile();
 
         try {
             FileInputStream fis = new FileInputStream("WestminsterProductDetails.txt");

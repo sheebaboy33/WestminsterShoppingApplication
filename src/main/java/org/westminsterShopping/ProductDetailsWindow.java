@@ -16,20 +16,22 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     static WestminsterShoppingManager manager = new WestminsterShoppingManager();
     static JTable productTable;
     JTableHeader header;
-    JButton shoppingCartBtn;
+    JButton shoppingCartBtn, addToCartBtn;
     JLabel selectProduct;
     JComboBox<String> displayChoiceComboBox;
     JPanel productDetailsPanel;
-    JButton addToCartBtn;
+    // JButton addToCartBtn;
     private OrderSummaryWindow summaryWindow;
     ShoppingCart shoppingCart = new ShoppingCart();
-
-    AbstractTableModel cartTableModel;
+    AbstractTableModel cartTableModel, tableModel;
+    // AbstractTableModel tableModel;
 
 
     // Constructor has way too much code. Reduce it using methods
     public ProductDetailsWindow() {
 
+
+        // Add a condition to check if the window is null
 
         productDetailsPanel = new JPanel();
         productDetailsPanel.setLayout(new BorderLayout());
@@ -53,10 +55,9 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         buttonPanel.add(shoppingCartBtn, BorderLayout.EAST);
         buttonPanel.setBorder(new EmptyBorder(new Insets(20,20,0,20)));
 
-        ProductTableModel tableModel = new ProductTableModel();
+        tableModel = new ProductTableModel();
         productTable = new JTable(tableModel) {
             /**
-             *
              * @param renderer  the <code>TableCellRenderer</code> to prepare
              * @param row       the row of the cell to render, where 0 is the first row
              * @param column    the column of the cell to render,
@@ -185,6 +186,7 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         this.add(p3);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == displayChoiceComboBox) {
@@ -200,6 +202,7 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
 
             // Update table model with filtered products
             ((ProductTableModel) productTable.getModel()).updateData(filteredProducts);
+            tableModel.fireTableDataChanged();
         }
 
         if (e.getSource() == addToCartBtn) {
@@ -216,21 +219,6 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
                 cartTableModel = new SummaryTableModel();
                 cartTableModel.fireTableDataChanged();
 
-                // Trying the final price here
-
-                /*
-                int total = 0;
-
-                for (int i = 0; i < cartTableModel.getRowCount(); i++) {
-                    if (cartTableModel.getValueAt(i, 2) != null) {
-
-                        total += (Double) cartTableModel.getValueAt(i, 2);
-                    }
-                }
-
-                System.out.println(total);
-
-                 */
 
                 if (summaryWindow != null) {
                     //System.out.println(summaryWindow.getTableValue(cartTableModel));

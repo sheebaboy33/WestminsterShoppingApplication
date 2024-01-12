@@ -54,7 +54,7 @@ public class ConsoleApplication {
                 case 104:
 
                     //JFrame frame = new ProductDetailsWindow();
-                    JFrame frame = new LoginWindow();
+                    LoginWindow frame = LoginWindow.getInstance();
                     frame.setTitle("Login Page - Westminster Shopping Centre");
                     frame.setSize(500, 300);
                     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
