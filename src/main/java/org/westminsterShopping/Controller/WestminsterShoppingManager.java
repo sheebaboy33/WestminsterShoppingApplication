@@ -1,4 +1,7 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Controller;
+
+import org.westminsterShopping.Model.Product;
+import org.westminsterShopping.Model.UserDetails;
 
 import javax.swing.*;
 import java.io.*;
@@ -137,7 +140,7 @@ public class WestminsterShoppingManager implements ShoppingManager {
                 return product.getAvailableItems();
             }
         }
-        return -1; // TODO: Make sure when entering available items from the console the values must be grater than 1
+        return -1;
     }
 }
 

@@ -1,15 +1,22 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Model;
+
+import org.westminsterShopping.Controller.ShoppingManager;
+import org.westminsterShopping.Controller.SummaryTableModel;
+import org.westminsterShopping.Controller.WestminsterShoppingManager;
+import org.westminsterShopping.Model.Clothing;
+import org.westminsterShopping.Model.Electronics;
+import org.westminsterShopping.Model.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.westminsterShopping.WestminsterShoppingManager.productsList;
+import static org.westminsterShopping.Controller.WestminsterShoppingManager.productsList;
 
 public class ShoppingCart {
-    static Map<String, Integer> productQuantity = new HashMap<>();
-    static List<Product> productsInCart = new ArrayList<>();
+    public static Map<String, Integer> productQuantity = new HashMap<>();
+    public static List<Product> productsInCart = new ArrayList<>();
     ShoppingManager manager = new WestminsterShoppingManager();
     SummaryTableModel summaryModel = new SummaryTableModel();
 

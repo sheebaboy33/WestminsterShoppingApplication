@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.westminsterShopping.Electronics;
-import org.westminsterShopping.Product;
-import org.westminsterShopping.WestminsterShoppingManager;
+import org.westminsterShopping.Model.Electronics;
+import org.westminsterShopping.Model.Product;
+import org.westminsterShopping.Controller.WestminsterShoppingManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,7 @@
-package org.westminsterShopping;
+package org.westminsterShopping.View;
+
+import org.westminsterShopping.Model.ShoppingCart;
+import org.westminsterShopping.Controller.SummaryTableModel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

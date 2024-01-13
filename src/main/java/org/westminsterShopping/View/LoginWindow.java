@@ -1,8 +1,10 @@
-package org.westminsterShopping;
+package org.westminsterShopping.View;
+
+import org.westminsterShopping.Model.User;
+import org.westminsterShopping.Model.UserDetails;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.metal.MetalBorders;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -85,7 +87,7 @@ public class LoginWindow extends JFrame implements ActionListener{
     }
 
     public JLabel addLogo() {
-        ImageIcon logo = new ImageIcon("src/main/java/org/westminsterShopping/online-shopping.jpg");
+        ImageIcon logo = new ImageIcon("src/main/java/org/westminsterShopping/Controller/online-shopping.jpg");
         JLabel logoIcon = new JLabel(logo);
         logoIcon.setSize(50, 50);
         logoIcon.setLayout(new FlowLayout());

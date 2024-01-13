@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.westminsterShopping.ConsoleApplication;
-import org.westminsterShopping.Electronics;
-import org.westminsterShopping.Product;
-import org.westminsterShopping.WestminsterShoppingManager;
+import org.westminsterShopping.Controller.ConsoleApplication;
+import org.westminsterShopping.Model.Electronics;
+import org.westminsterShopping.Model.Product;
+import org.westminsterShopping.Controller.WestminsterShoppingManager;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

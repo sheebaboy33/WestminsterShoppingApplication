@@ -1,4 +1,4 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Model;
 
 import java.io.Serializable;
 

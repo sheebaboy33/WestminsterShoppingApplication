@@ -1,6 +1,6 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Controller;
 
-import java.io.IOException;
+import org.westminsterShopping.Model.Product;
 
 public interface ShoppingManager {
     void addProduct(Product product);

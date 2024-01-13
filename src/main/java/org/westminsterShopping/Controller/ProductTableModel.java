@@ -1,4 +1,8 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Controller;
+
+import org.westminsterShopping.Model.Clothing;
+import org.westminsterShopping.Model.Electronics;
+import org.westminsterShopping.Model.Product;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

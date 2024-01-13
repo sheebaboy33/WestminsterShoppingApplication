@@ -1,4 +1,6 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Controller;
+
+import org.westminsterShopping.Model.Product;
 
 import java.util.Comparator;
 

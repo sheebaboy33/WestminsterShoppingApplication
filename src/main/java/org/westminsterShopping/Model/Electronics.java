@@ -1,10 +1,12 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Model;
+
+import org.westminsterShopping.Model.Product;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class Electronics extends Product{
+public class Electronics extends Product {
     private String brand;
     private int warrantyPeriodInWeeks;
 

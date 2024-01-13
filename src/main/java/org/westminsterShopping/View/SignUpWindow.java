@@ -1,4 +1,7 @@
-package org.westminsterShopping;
+package org.westminsterShopping.View;
+
+import org.westminsterShopping.Model.User;
+import org.westminsterShopping.Model.UserDetails;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

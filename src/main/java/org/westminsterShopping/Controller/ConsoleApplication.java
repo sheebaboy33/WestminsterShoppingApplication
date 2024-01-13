@@ -1,12 +1,21 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Controller;
+
+import org.westminsterShopping.Model.Clothing;
+import org.westminsterShopping.Model.Electronics;
+import org.westminsterShopping.Model.Product;
+import org.westminsterShopping.Model.ShoppingCart;
+import org.westminsterShopping.View.LoginWindow;
+import org.westminsterShopping.View.ProductDetailsWindow;
 
 import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static org.westminsterShopping.WestminsterShoppingManager.productsList;
+import static org.westminsterShopping.Controller.WestminsterShoppingManager.productsList;
 
-
+/**
+ * The main entry point for the console application.
+ * **/
 public class ConsoleApplication {
     static ShoppingManager manager = new WestminsterShoppingManager();
     public static Scanner input = new Scanner(System.in);
@@ -15,6 +24,7 @@ public class ConsoleApplication {
     public static void main(String[] args){
         manager.retrieveDataFromFile();
 
+        // Display welcome message and start the menu loop
         System.out.println("*".repeat(52) + "\n* Welcome to the Westminster Shopping Application! *\n" + "*".repeat(52));
 
         menuLoop :
@@ -25,6 +35,7 @@ public class ConsoleApplication {
             System.out.print("Select an option: \n>>>");
 
             try {
+                // Prompt the user for input and handle their choice
                 choice = input.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid option, Try again." );
@@ -64,6 +75,9 @@ public class ConsoleApplication {
                         frame.setLocation(400, 250);
 
                     } else if (!ProductDetailsWindow.getProductsWindowInstance().isVisible()) { // To implement the GUI again from the hidden state
+                        // Resetting the product cart to be empty
+                        ShoppingCart.productsInCart.clear();
+                        ShoppingCart.productQuantity.clear();
                         LoginWindow.getInstance().setVisible(true);
                     }
 
@@ -85,6 +99,9 @@ public class ConsoleApplication {
     }
 
 
+    /**
+     * Displays the menu options for the user.
+     */
     public static void displayMenu() {
         System.out.println("""
                 \nMenu Options
@@ -98,6 +115,9 @@ public class ConsoleApplication {
     }
 
 
+    /**
+     * Adds products to the system based on user input.
+     */
     public static void addProductToSystem() {
         try {
             Product product = getProductInput();
@@ -124,6 +144,12 @@ public class ConsoleApplication {
     }
 
 
+    /**
+     * Validates and retrieves user input to create a new Product object.
+     *
+     * @return A new Product object based on user input.
+     * @throws InputMismatchException If the input does not match the expected format.
+     */
     public static Product getProductInput() throws InputMismatchException{
 
         Product product;
@@ -148,9 +174,11 @@ public class ConsoleApplication {
 
         System.out.print("Enter Available Items: \n>>>");
         int availableItems = input.nextInt();
+        availableItems = validateAvailableItems(availableItems);
 
         System.out.print("Enter Product Price: \n>>>");
         double price = input.nextDouble();
+        price = validatePrice(price);
 
 
         switch (productType.toLowerCase().trim()) {
@@ -161,6 +189,9 @@ public class ConsoleApplication {
 
                 System.out.print("Enter Warranty Period in Weeks: \n>>>");
                 int warrantyPeriod = input.nextInt();
+                warrantyPeriod = validateWarrantyPeriod(warrantyPeriod);
+
+
                 product = new Electronics(productId, productName, availableItems, price, brand, warrantyPeriod);
             }
             case "clothing" -> {
@@ -178,6 +209,19 @@ public class ConsoleApplication {
             }
         }
         return product;
+    }
+
+    public static int validateWarrantyPeriod(int warrantyPeriod) {
+        if (warrantyPeriod >= 0) {
+            return warrantyPeriod;
+        }
+        else {
+            while (warrantyPeriod < 0) {
+                System.out.print("Warranty Period in Weeks Must Be Greater Than or equals to Zero.\n>>>");
+                warrantyPeriod = input.nextInt();
+            }
+        }
+        return warrantyPeriod;
     }
 
 
@@ -221,9 +265,37 @@ public class ConsoleApplication {
 
     }
 
+
+    public static int validateAvailableItems(int availableItems) {
+        if (availableItems > 0) {
+            return availableItems;
+        } else {
+
+            while (availableItems <= 0) {
+                System.out.print("Available Items Must Be Greater Than Zero.\n>>>");
+                availableItems = input.nextInt();
+            }
+        }
+        return availableItems;
+    }
+
+
     public static boolean checkFormat(String productId){
         String requiredPattern = "[A-Z]\\d{3}"; // Required regular expression Ex: A001
         return productId.matches(requiredPattern);
+    }
+
+    public static double validatePrice(double price) {
+        if (price > 0) {
+            return price;
+        } else {
+
+            while (price <= 0) {
+                System.out.print("Price Must Be Greater Than Zero.\n>>>");
+                price = input.nextInt();
+            }
+        }
+        return price;
     }
 }
 

@@ -1,4 +1,6 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Model;
+
+import org.westminsterShopping.Model.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class UserDetails {
             FileInputStream fis = new FileInputStream("WestminsterUserDetails.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            for (; ; ) {
+            for (; ; ) { // Infinite for loop
                 try {
                     User user = (User) ois.readObject();
                     userList.add(user);
@@ -57,8 +59,7 @@ public class UserDetails {
             ois.close();
 
         } catch(Exception e) {
-            System.out.println(e.getMessage() + ", Try again.");
+            System.out.println("File is currently Empty. Try again");
         }
     }
-
 }

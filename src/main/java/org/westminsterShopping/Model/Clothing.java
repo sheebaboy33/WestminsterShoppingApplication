@@ -1,9 +1,11 @@
-package org.westminsterShopping;
+package org.westminsterShopping.Model;
+
+import org.westminsterShopping.Model.Product;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Clothing extends Product{
+public class Clothing extends Product {
     private String size;
     private String color;
 
