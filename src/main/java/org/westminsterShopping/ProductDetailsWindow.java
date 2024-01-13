@@ -35,8 +35,12 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         productDetailsPanel = new JPanel();
         productDetailsPanel.setLayout(new BorderLayout());
 
+        productDetailsPanel.setBackground(new Color(254, 235,216));
+
 
         selectProduct = new JLabel("Select Product Category ");
+        LoginWindow.designJLabel(selectProduct, Color.BLACK);
+        selectProduct.setFont(new Font("Monospaced", Font.ITALIC, 12));
 
         String[] items ={"All", "Electronic", "Clothing"};
         displayChoiceComboBox = new JComboBox<>(items);
@@ -46,9 +50,13 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         shoppingCartBtn = new JButton("Shopping Cart");
         shoppingCartBtn.setMargin(new Insets(5, 5, 5, 5));
         shoppingCartBtn.addActionListener(this); // This means, notify the frame
+        LoginWindow.designJButton(shoppingCartBtn);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(255, 255,255));
+        buttonPanel.setBorder(new EmptyBorder(new Insets(20, 20, 30, 20)));
+        buttonPanel.setBackground(new Color(254, 235,216));
+
+
 
         buttonPanel.setLayout(new BorderLayout(0, 0));
         buttonPanel.add(shoppingCartBtn, BorderLayout.EAST);
@@ -106,6 +114,7 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
 
                     JPanel detailsPanel = getProductDetailsPanel(productID);
 
+
                     // If the selected row is empty, getProductDetails() returns null
                     if (detailsPanel != null) {
                         productDetailsPanel.add(detailsPanel, BorderLayout.CENTER);
@@ -113,12 +122,16 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
                         JPanel buttonPanel1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
                         addToCartBtn.setMargin(new Insets(5, 5, 5, 5));
+                        LoginWindow.designJButton(addToCartBtn);
 
-                        buttonPanel1.setBackground(new Color(255, 255,255));
+                        //buttonPanel1.setBackground(new Color(255, 255,255));
+                        buttonPanel1.setBackground(new Color(254, 235,216));
+
 
                         buttonPanel1.add(addToCartBtn, BorderLayout.PAGE_END);
                         buttonPanel1.setBorder(new EmptyBorder(new Insets(20,20,30,20)));
                         productDetailsPanel.add(buttonPanel1, BorderLayout.SOUTH);
+
 
                         Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
                         productDetailsPanel.setBorder(blackLine);
@@ -155,14 +168,15 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         scrollPane.setVisible(true);
 
         JPanel p2 = new JPanel();
+
         p2.setLayout(new FlowLayout());
-        p2.setBackground(new Color(255, 255,255));
 
         p2.add(selectProduct);
         p2.add(displayChoiceComboBox);
 
         JPanel p1 = new JPanel();
-        p1.setBackground(new Color(255, 255,255));
+        p2.setBackground(new Color(255, 248, 242));
+        p1.setBackground(new Color(255, 248, 242));
 
         p1.setLayout(new FlowLayout());
         p1.add(scrollPane);
@@ -171,11 +185,13 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
         JPanel combine = new JPanel();
         combine.setLayout(new BorderLayout());
 
+
         combine.add(p1, BorderLayout.CENTER);
         combine.add(p2, BorderLayout.NORTH);
 
         // For the combox
         JPanel p3 = new JPanel();
+
         p3.setLayout(new BorderLayout());
         p3.add(buttonPanel, BorderLayout.PAGE_START);
         p3.add(combine, BorderLayout.CENTER);

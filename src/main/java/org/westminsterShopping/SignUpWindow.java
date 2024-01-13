@@ -1,6 +1,7 @@
 package org.westminsterShopping;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,19 +16,28 @@ public class SignUpWindow extends JFrame{
     public SignUpWindow() {
 
         this.setTitle("Sign Up");
-        this.setSize(300, 200);
+        this.setSize(450, 175);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         this.setLocation(800, 400);
+        this.setBackground(new Color(255, 128, 1));
+        this.setResizable(false);
+
 
 
         JPanel panel = new JPanel(new GridLayout(3, 2));
 
+
         JLabel  usernameLabel = new JLabel("Enter a Username: ");
-        usernameField = new JTextField();
+        LoginWindow.designJLabel(usernameLabel, Color.WHITE);
+
         JLabel  passwordLabel = new JLabel("Enter a Password: ");
+        LoginWindow.designJLabel(passwordLabel, Color.WHITE);
+
+        usernameField = new JTextField();
         passwordField = new JPasswordField();
         registerButton = new JButton("Submit");
+        LoginWindow.designJButton(registerButton);
 
         registerButton.addActionListener(new ActionListener() {
 
@@ -58,7 +68,17 @@ public class SignUpWindow extends JFrame{
         panel.add(passwordField);
         panel.add(new JLabel()); // Placeholder for spacing
 
-        panel.add(registerButton);
+        panel.setBackground(new Color(254, 199, 144));
+        panel.setBorder(new EmptyBorder(5,10,5,5));
+
+        JPanel buttonPanel = new JPanel();
+
+        buttonPanel.add(registerButton, BorderLayout.CENTER);
+        buttonPanel.setBackground(new Color(254, 199, 144));
+        buttonPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+
+        panel.add(buttonPanel, BorderLayout.SOUTH);
         this.add(panel, BorderLayout.NORTH);
     }
 

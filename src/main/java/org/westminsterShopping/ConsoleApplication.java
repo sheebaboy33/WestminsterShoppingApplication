@@ -57,11 +57,14 @@ public class ConsoleApplication {
                     // Inorder to create a new GUI, both the product and login windows of the GUI must be closed
                     if (ProductDetailsWindow.getProductWindowState() == null && LoginWindow.getLoginInstanceState() == null) {
                         LoginWindow frame = LoginWindow.getInstance();
-                        frame.setTitle("Login Page - Westminster Shopping Centre");
+                        frame.setTitle("Login - Westminster Shopping Centre");
                         frame.setSize(500, 300);
                         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                         frame.setVisible(true);
                         frame.setLocation(400, 250);
+
+                    } else if (!ProductDetailsWindow.getProductsWindowInstance().isVisible()) { // To implement the GUI again from the hidden state
+                        LoginWindow.getInstance().setVisible(true);
                     }
 
                     System.out.println("GUI Application is now open.");
@@ -210,7 +213,7 @@ public class ConsoleApplication {
     public static boolean checkUniqueId(String productId) {
         for (Product checkProduct: productsList) {
             if (checkProduct.getProductId().equals(productId)) {
-                //System.out.println("ProductId cannot be the same. Please Try again.");
+                // ProductId cannot be the same.
                 return false;
             }
         }

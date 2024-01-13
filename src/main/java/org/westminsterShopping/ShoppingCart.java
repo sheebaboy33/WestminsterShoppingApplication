@@ -34,7 +34,7 @@ public class ShoppingCart {
             }
         }
         updateAvailableProducts(productId);
-        displayShoppingCart();
+        //displayShoppingCart();
         summaryModel.updateCart((ArrayList<Product>) productsInCart);
     }
 
