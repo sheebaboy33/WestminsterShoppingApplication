@@ -8,11 +8,15 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class WestminsterShoppingManager implements ShoppingManager {
-    public static ArrayList<Product> productsList = new ArrayList<>(50);
+    public static ArrayList<Product> productsList = new ArrayList<>(50); // Product list of 50
     public static int productCount = 0;
     private final UserDetails USERINFO = new UserDetails();
 
 
+    /**
+     * Method is used to add products to the products list if it does not exceed 50
+     * @param product product generated from user input
+     */
     @Override
     public void addProduct(Product product) {
         if (productsList.size() < 50) {
@@ -29,6 +33,11 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
 
+    /**
+     * Method is used to delete a product from the system
+     * @param productId product ID provided as input
+     * @return A message
+     */
     @Override
     public String deleteProduct(String productId) {
 
@@ -44,6 +53,9 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
 
+    /**
+     * Displays the details of the products in the list and empty if it doesn't exist
+     */
     @Override
     public void displayProducts() {
         if (productsList.isEmpty()) {
@@ -62,6 +74,9 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
 
+    /**
+     * Saves the data to file
+     */
     @Override
     public void saveToFile(){
         try {
@@ -84,6 +99,9 @@ public class WestminsterShoppingManager implements ShoppingManager {
     }
 
 
+    /**
+     * Retrieves the data back from the file
+     */
     @Override
     public void retrieveDataFromFile(){
 
@@ -146,4 +164,3 @@ public class WestminsterShoppingManager implements ShoppingManager {
         return -1;
     }
 }
-

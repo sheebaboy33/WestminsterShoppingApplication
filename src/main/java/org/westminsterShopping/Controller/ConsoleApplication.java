@@ -15,10 +15,11 @@ import static org.westminsterShopping.Controller.WestminsterShoppingManager.prod
 
 /**
  * The main entry point for the console application.
- * **/
+ *
+ **/
 public class ConsoleApplication {
-    static ShoppingManager manager = new WestminsterShoppingManager();
-    public static Scanner input = new Scanner(System.in);
+    static ShoppingManager manager = new WestminsterShoppingManager(); // access the shopping manager
+    public static Scanner input = new Scanner(System.in); // global scanner to get user input
 
 
     public static void main(String[] args){
@@ -124,13 +125,9 @@ public class ConsoleApplication {
 
             if (product != null) {
 
-                for (Product checkProduct: productsList) {
-                    if (checkProduct.getProductId().equals(product.getProductId())) {
-                        System.out.println("Product Id cannot be the same. Please Try again.");
-                        return;
-                    }
+                if (checkUniqueId(product.getProductId())) {
+                    manager.addProduct(product);
                 }
-                manager.addProduct(product);
             }
             else
                 System.out.println("""
@@ -212,6 +209,11 @@ public class ConsoleApplication {
         return product;
     }
 
+    /**
+     * Method is used to check if the user provided input is valid and returns the corrected input by re-prompting the user
+     * @param warrantyPeriod The user entered warranty period
+     * @return the corrected warranty period
+     */
     public static int validateWarrantyPeriod(int warrantyPeriod) {
         if (warrantyPeriod >= 0) {
             return warrantyPeriod;
@@ -226,6 +228,11 @@ public class ConsoleApplication {
     }
 
 
+    /**
+     * Method is used to check if the user provided input is valid and returns the corrected input by re-prompting the user
+     * @param size The user entered clothing size
+     * @return the corrected clothing size
+     */
     public static String validateClothSize(String size) {
         String formattedSize = size.toLowerCase().trim();
 
@@ -239,6 +246,11 @@ public class ConsoleApplication {
     }
 
 
+    /**
+     * Method is used to check if the user provided input is valid and returns the corrected input by re-prompting the user
+     * @param productId user entered product Id
+     * @return The corrected user ID
+     */
     public static String validateProductId(String productId) {
         boolean correctFormat = checkFormat(productId);
 
@@ -255,6 +267,12 @@ public class ConsoleApplication {
         return productId;
     }
 
+
+    /**
+     * Method is used to check for the uniqueness of the product ID
+     * @param productId user provided product ID
+     * @return true if the ID is not duplicated and false otherwise
+     */
     public static boolean checkUniqueId(String productId) {
         for (Product checkProduct: productsList) {
             if (checkProduct.getProductId().equals(productId)) {
@@ -263,10 +281,14 @@ public class ConsoleApplication {
             }
         }
         return true;
-
     }
 
 
+    /**
+     * Method is used to check if the user provided input is valid and returns the corrected input by re-prompting the user
+     * @param availableItems user provided items
+     * @return corrected items
+     */
     public static int validateAvailableItems(int availableItems) {
         if (availableItems > 0) {
             return availableItems;
@@ -281,11 +303,22 @@ public class ConsoleApplication {
     }
 
 
+    /**
+     * Method is used to check for the format of the product ID
+     * @param productId user provided id
+     * @return true if the ID is in the correct format and false otherwise
+     */
     public static boolean checkFormat(String productId){
         String requiredPattern = "[A-Z]\\d{3}"; // Required regular expression Ex: A001
         return productId.matches(requiredPattern);
     }
 
+
+    /**
+     * Method is used to check if the user provided input is valid and returns the corrected input by re-prompting the user
+     * @param price user provided price
+     * @return the corrected price
+     */
     public static double validatePrice(double price) {
         if (price > 0) {
             return price;
@@ -299,4 +332,3 @@ public class ConsoleApplication {
         return price;
     }
 }
-
