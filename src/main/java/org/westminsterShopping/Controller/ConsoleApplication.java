@@ -70,7 +70,7 @@ public class ConsoleApplication {
                         LoginWindow frame = LoginWindow.getInstance();
                         frame.setTitle("Login - Westminster Shopping Centre");
                         frame.setSize(500, 300);
-                        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
                         frame.setVisible(true);
                         frame.setLocation(400, 250);
 

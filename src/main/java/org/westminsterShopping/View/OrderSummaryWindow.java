@@ -15,13 +15,13 @@ public class OrderSummaryWindow extends JFrame {
     static JTable cartTable;
     JTableHeader tableHeader;
     double total = 0;
-    JLabel label2;
-    JLabel label6;
-    JLabel label8;
+    JLabel label2, label4, label6, label8;
     double finalPrice;
     double firstPurchaseDiscount = 0;
     double threeItemsDiscount = 0;
     private ShoppingCart cartDetails = new ShoppingCart();
+
+
 
     public OrderSummaryWindow() {
 
@@ -51,7 +51,7 @@ public class OrderSummaryWindow extends JFrame {
         tableHeader = cartTable.getTableHeader();
         tableHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
 
-        // Center header text
+        // Center header text in the table
         ((DefaultTableCellRenderer) tableHeader.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
         Dimension tableSize = new Dimension(850, 275);
@@ -96,7 +96,6 @@ public class OrderSummaryWindow extends JFrame {
         JLabel label3 = new JLabel("First Purchase Discount (10%)");
         label3.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        JLabel label4;
         if (SignUpWindow.newCustomer) {
             firstPurchaseDiscount = total * 0.1;
             label4 = new JLabel(firstPurchaseDiscount + " £");
@@ -156,6 +155,13 @@ public class OrderSummaryWindow extends JFrame {
 
         // Repaint the label to reflect the changes
         label2.repaint();
+    }
+
+    public void updateFirstPurchaseDiscount() {
+        firstPurchaseDiscount = total * 0.1;
+        label4.setText(String.valueOf(firstPurchaseDiscount) + " £");
+
+        label4.repaint();
     }
 
 

@@ -32,11 +32,10 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
     AbstractTableModel cartTableModel, tableModel;
 
 
-    // Constructor has way too much code. Reduce it using methods
+    /**
+     * Constructor for the singleton ProductDetails window
+     */
     private ProductDetailsWindow() {
-
-
-        // Add a condition to check if the window is null
 
         productDetailsPanel = new JPanel();
         productDetailsPanel.setLayout(new BorderLayout());
@@ -94,7 +93,6 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
             }
         };
 
-        //WARNING: row index is bigger than sorter's row count. Most likely this is a wrong sorter usage.
         productTable.setAutoCreateRowSorter(true); // Allows the user to sort the table
 
         addToCartBtn = new JButton("Add To Shopping Cart");
@@ -255,6 +253,7 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
                 if (summaryWindow != null) {
                     //System.out.println(summaryWindow.getTableValue(cartTableModel));
                     summaryWindow.updateTotal(shoppingCart.getTotalPrice());
+                    summaryWindow.updateFirstPurchaseDiscount();
 
                     if (shoppingCart.getThreeItemsDiscount()) {
                         summaryWindow.updateThreeItemDiscount();

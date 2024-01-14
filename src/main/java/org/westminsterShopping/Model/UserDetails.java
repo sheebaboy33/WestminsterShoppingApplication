@@ -1,10 +1,10 @@
 package org.westminsterShopping.Model;
 
-import org.westminsterShopping.Model.User;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UserDetails {
     static List<User> userList = new ArrayList<>();

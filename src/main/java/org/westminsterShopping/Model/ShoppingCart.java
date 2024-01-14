@@ -3,9 +3,7 @@ package org.westminsterShopping.Model;
 import org.westminsterShopping.Controller.ShoppingManager;
 import org.westminsterShopping.Controller.SummaryTableModel;
 import org.westminsterShopping.Controller.WestminsterShoppingManager;
-import org.westminsterShopping.Model.Clothing;
-import org.westminsterShopping.Model.Electronics;
-import org.westminsterShopping.Model.Product;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;

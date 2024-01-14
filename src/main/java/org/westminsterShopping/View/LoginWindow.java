@@ -18,6 +18,10 @@ public class LoginWindow extends JFrame implements ActionListener{
     SignUpWindow registerWindow;
     User user;
 
+
+    /**
+     * Constructor for the singleton Login window
+     */
     private LoginWindow() {
 
        initializeComponents();
