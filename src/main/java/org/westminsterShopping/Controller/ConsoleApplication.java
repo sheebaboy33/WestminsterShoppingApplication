@@ -139,6 +139,7 @@ public class ConsoleApplication {
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter an Integer and try again.");
+            input.nextLine(); // Catching the unnecessary line in the buffer
 
         }
     }

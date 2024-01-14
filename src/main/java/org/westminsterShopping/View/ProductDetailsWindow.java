@@ -244,11 +244,13 @@ public class ProductDetailsWindow extends JFrame implements ActionListener{
                 String productId = (String) productTable.getValueAt(selectedRowIndex, PRODUCT_ID_COLUMN);
                 shoppingCart.addToShoppingCart(productId);
 
-                ProductTableModel model = (ProductTableModel) productTable.getModel();
+                //ProductTableModel model = (ProductTableModel) productTable.getModel();
 
                 cartTableModel = new SummaryTableModel();
-                cartTableModel.fireTableDataChanged();
 
+                if (SignUpWindow.newCustomer) {
+                    cartTableModel.fireTableDataChanged();
+                }
 
                 if (summaryWindow != null) {
                     //System.out.println(summaryWindow.getTableValue(cartTableModel));
