@@ -17,6 +17,7 @@ public class ProductTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
+        // Ensure the table shows a minimum number of rows
         return Math.max(productsToDisplay.size(), MIN_ROWS);
     }
 

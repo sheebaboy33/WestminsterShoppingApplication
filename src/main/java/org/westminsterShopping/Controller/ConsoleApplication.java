@@ -1,3 +1,9 @@
+/**
+ * Westminster Shopping Application
+ * @version 1.0
+ * @author Sharm Johan Ashley Fernando
+ */
+
 package org.westminsterShopping.Controller;
 
 import org.westminsterShopping.Model.Clothing;
@@ -47,6 +53,7 @@ public class ConsoleApplication {
 
             switch (choice) {
                 case 100:
+                    // Handle adding a new product
                     addProductToSystem();
                     break;
 

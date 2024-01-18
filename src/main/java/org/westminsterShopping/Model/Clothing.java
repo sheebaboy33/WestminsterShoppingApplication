@@ -1,7 +1,5 @@
 package org.westminsterShopping.Model;
 
-import org.westminsterShopping.Model.Product;
-
 import javax.swing.*;
 import java.awt.*;
 
